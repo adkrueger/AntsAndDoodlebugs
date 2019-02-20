@@ -9,17 +9,20 @@
 #define ANT_H_
 
 #include "Organism.h"
+#include "Grid.h"
+
 
 class Ant: public Organism {
 private:
-	int row = 0;
-	int col = 0;
-
+	int row;
+	int col;
+    int movesWithoutBreeding; // incremented, after 3 steps will attempt to breed
+    Grid* grid;
 public:
 	Ant();
-	Ant(int r=0, int c = 0);
-	bool move();
-	bool breed();
+	Ant(int r, int c, Grid* grid);
+	bool move(Grid* grid);
+	bool breed(Grid* grid);
 	 ~Ant();
 };
 

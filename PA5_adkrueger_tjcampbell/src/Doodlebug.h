@@ -8,18 +8,20 @@
 #ifndef DOODLEBUG_H_
 #define DOODLEBUG_H_
 
+#include "Grid.h"
 #include "Organism.h"
 
 class Doodlebug: public Organism {
-private:
-	int r = 0;
-	int c = 0;
-	int movesWithoutBreeding = 0;
+protected:
+	int r;
+	int c;
+	int stepsTilStarve;
 public:
 	Doodlebug();
-	bool move();
-	bool breed();
-	bool eat();
+	Doodlebug(int r, int c);
+	bool move(Grid* grid);
+	bool breed(Grid* grid);
+	bool eat(Grid* grid);
 	virtual ~Doodlebug();
 };
 

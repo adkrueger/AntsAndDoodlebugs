@@ -6,13 +6,28 @@
  */
 
 #include "Doodlebug.h"
+#include "Grid.h"
 
 /**
  * Default constructor for a Doodlebug object
  */
 Doodlebug::Doodlebug() {
 	// TODO Auto-generated constructor stub
+	r = 0;
+	c = 0;
+    stepsTilStarve = 3;
+}
 
+/**
+ * Default constructor for a Doodlebug object which has row r and column c
+ * @param r The row of the doodlebug
+ * @param c The column of the doodlebug
+ */
+Doodlebug::Doodlebug(int r, int c) {
+	// TODO Auto-generated constructor stub
+	this->r = r;
+	this->c = c;
+    stepsTilStarve = 3;
 }
 
 /**
@@ -26,9 +41,10 @@ Doodlebug::Doodlebug() {
  * If no Cells are available, the Doodlebug will remain in the same location.
  * @return Whether the Doodlebug moved successfully
  */
-bool Doodlebug::move()
-{
+bool Doodlebug::move(Grid* grid) {
 	bool status = true;
+
+
 	return status;
 }
 
@@ -42,9 +58,10 @@ bool Doodlebug::move()
  * which adjacent cell it will create another Doodlebug.
  * @return whether or not the Doodlebug was created successfully
  */
-bool Doodlebug::breed()
-{
-	bool status = true;
+bool Doodlebug::breed(Grid* grid) {
+	bool status = false;
+
+
 	return status;
 }
 
@@ -52,7 +69,7 @@ bool Doodlebug::breed()
  * Consumes an Ant, moving into its space and removing it from the board
  * @return Whether or not the Ant was eaten successfully
  */
-bool Doodlebug::eat()
+bool Doodlebug::eat(Grid* grid)
 {
 	bool status = true;
 	return status;

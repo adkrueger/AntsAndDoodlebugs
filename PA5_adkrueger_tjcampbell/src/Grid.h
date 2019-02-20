@@ -9,13 +9,25 @@
 #define GRID_H_
 
 #include "Cell.h"
+#include "Organism.h"
+#include "occupationStatus.h"
+class Cell;
+class Organism;
 
 class Grid {
+private:
+	int numTimeSteps; // starts at 0, when it reaches the number specified by the user game ends
+
 public:
+	Organism*** orgArray = (Organism***)nullptr;
+	int n=0; //this initial value will be changed when the program is invoked
 	Grid();
 	Grid(int nSquaresOnASide);
-	bool setCellOccupant(int r, int c, occupationStatus g);
-	occupationStatus getCellOccupant(int r, int c);
+	void setCellOccupant(int r, int c, Organism* o);
+	Organism* getCellOccupant(int r, int c);
+	void step();
+	char getLetter(int r, int c);
+	void printGrid();
 	virtual ~Grid();
 };
 

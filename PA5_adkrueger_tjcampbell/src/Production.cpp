@@ -12,7 +12,7 @@ int timestepsLeft=100;
 
 Production::Production(int argc, char* argv[]) {
 	// TODO Auto-generated constructor stub
-	int timestepsLeft = 100; //initialize available timesteps
+	//int timestepsLeft = 100; //initialize available timesteps
 }
 
 bool Production::runProduction()

@@ -12,8 +12,7 @@ bool amAnt = false;
  * Default constructor for an Organism
  */
 Organism::Organism() {
-	// TODO Auto-generated constructor stub
-
+	stepsTilBreed = 0;
 }
 
 /**
@@ -22,7 +21,7 @@ Organism::Organism() {
  */
 Organism::Organism(bool b) {
 	amAnt = b;
-
+	stepsTilBreed = 0;
 }
 
 /**
@@ -43,10 +42,19 @@ void Organism::setAmAnt(bool b) {
 }
 
 /**
+ * Checks whether or not the given Cell is occupied by something.
+ * @param grid The grid that will be checked
+ * @return true if there is nothing in the given space, false otherwise
+ */
+bool Organism::isEmpty(Grid* grid, int r, int c) {
+    return (grid->getCellOccupant(r, c) == nullptr);
+}
+
+/**
  * Destructor for an Organism
  * Removes the Organism from the Grid and memory
  */
 Organism::~Organism() {
-	// TODO Auto-generated destructor stub
+
 }
 

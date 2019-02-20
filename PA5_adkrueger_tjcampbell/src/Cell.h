@@ -7,15 +7,22 @@
 
 #ifndef CELL_H_
 #define CELL_H_
-
-enum occupationStatus { empty, ant, doodlebug};
-
+#include "Organism.h"
+#include "occupationStatus.h"
+class Organism;
 
 class Cell {
+protected:
+	//Organism* guest = new Organism();
+	int r;
+	int c;
 public:
 	Cell();
+	Cell(int r, int c);
 	bool setOccupant(occupationStatus g);
+	Organism* setOrganism(occupationStatus g);
 	occupationStatus getOccupant();
+	Organism* getOrganism(Cell c);
 	void deleteOccupant(int r, int c);
 	virtual ~Cell();
 };

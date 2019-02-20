@@ -6,7 +6,6 @@
 CPP_SRCS += \
 ../src/Ant.cpp \
 ../src/AntsAndDoodles.cpp \
-../src/Cell.cpp \
 ../src/Doodlebug.cpp \
 ../src/Grid.cpp \
 ../src/Organism.cpp \
@@ -16,7 +15,6 @@ CPP_SRCS += \
 OBJS += \
 ./src/Ant.o \
 ./src/AntsAndDoodles.o \
-./src/Cell.o \
 ./src/Doodlebug.o \
 ./src/Grid.o \
 ./src/Organism.o \
@@ -26,7 +24,6 @@ OBJS += \
 CPP_DEPS += \
 ./src/Ant.d \
 ./src/AntsAndDoodles.d \
-./src/Cell.d \
 ./src/Doodlebug.d \
 ./src/Grid.d \
 ./src/Organism.d \

@@ -38,19 +38,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: LAB5_adkrueger
+all: PA5_adkrueger_tjcampbell
 
 # Tool invocations
-LAB5_adkrueger: $(OBJS) $(USER_OBJS)
+PA5_adkrueger_tjcampbell: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++  -o "LAB5_adkrueger" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++  -o "PA5_adkrueger_tjcampbell" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(C_UPPER_DEPS)$(CXX_DEPS)$(OBJS)$(CPP_DEPS)$(C_DEPS) LAB5_adkrueger
+	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(C_UPPER_DEPS)$(CXX_DEPS)$(OBJS)$(CPP_DEPS)$(C_DEPS) PA5_adkrueger_tjcampbell
 	-@echo ' '
 
 .PHONY: all clean dependents
