@@ -68,7 +68,7 @@ bool Doodlebug::move(Grid* grid) {
 					hasMoved = true;
 				}
 			}
-			else if (r-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey()) {
+			else if (r-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey()) { // if the move is blocked by an Ant, eat it
 				this->eat(grid, r-1, c);
 			}
 			if(canMoveEast) {
@@ -77,17 +77,26 @@ bool Doodlebug::move(Grid* grid) {
 					hasMoved = true;
 				}
 			}
+			else if (c+1 < grid->n && grid->getCellOccupant(r-1, c)->isPrey()) { // if the move is blocked by an Ant, eat it
+				this->eat(grid, r, c+1);
+			}
 			if(canMoveSouth) {
 				if(randomInt == numEmptyAdjacents + 2) {
 					new Doodlebug(r+1, c, grid);
 					hasMoved = true;
 				}
 			}
+			else if (r+1 < grid->n && grid->getCellOccupant(r-1, c)->isPrey()) { // if the move is blocked by an Ant, eat it
+				this->eat(grid, r+1, c);
+			}
 			if(canMoveWest) {
 				if(randomInt == numEmptyAdjacents + 3) {
 					new Doodlebug(r, c-1, grid);
 					hasMoved = true;
 				}
+			}
+			else if (c-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey()) { // if the move is blocked by an Ant, eat it
+				this->eat(grid, r, c-1);
 			}
 		}
 	}

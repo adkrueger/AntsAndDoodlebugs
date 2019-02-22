@@ -8,10 +8,7 @@
 #ifndef GRID_H_
 #define GRID_H_
 
-#include "Cell.h"
 #include "Organism.h"
-#include "occupationStatus.h"
-class Cell;
 class Organism;
 
 class Grid {

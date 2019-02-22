@@ -8,7 +8,6 @@
 #include <iostream>
 #include <iomanip>
 #include "Grid.h"
-#include "Cell.h"
 #include "Organism.h"
 
 
