@@ -23,7 +23,7 @@ public:
 	Doodlebug(int r, int c, Grid* grid);
 	bool move(Grid* grid);
 	bool breed(Grid* grid);
-	bool eat(Grid* grid);
+	bool eat(Grid* grid, int r, int c);
 	void step(Grid* grid);
 	virtual ~Doodlebug();
 };

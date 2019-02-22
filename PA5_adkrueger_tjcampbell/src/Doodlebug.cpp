@@ -68,6 +68,9 @@ bool Doodlebug::move(Grid* grid) {
 					hasMoved = true;
 				}
 			}
+			else if (r-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey()) {
+				this->eat(grid, r-1, c);
+			}
 			if(canMoveEast) {
 				if(randomInt == numEmptyAdjacents + 1) {
 					new Doodlebug(r, c+1, grid);
@@ -125,25 +128,25 @@ bool Doodlebug::breed(Grid* grid) {
 			int randomInt = (int)(rand() % (numEmptyAdjacents + 1)); // generates a random int from 0 to 3
 			if(canBreedNorth) {
 				if(randomInt == numEmptyAdjacents) {
-					new Doodlebug(r-1, c, grid);
+					grid->setCellOccupant(r, c, new Doodlebug(r-1, c, grid));
 					hasBred = true;
 				}
 			}
 			if(canBreedEast) {
 				if(randomInt == numEmptyAdjacents + 1) {
-					new Doodlebug(r, c+1, grid);
+					grid->setCellOccupant(r, c, new Doodlebug(r, c+1, grid));
 					hasBred = true;
 				}
 			}
 			if(canBreedSouth) {
 				if(randomInt == numEmptyAdjacents + 2) {
-					new Doodlebug(r+1, c, grid);
+					grid->setCellOccupant(r, c, new Doodlebug(r+1, c, grid));
 					hasBred = true;
 				}
 			}
 			if(canBreedWest) {
 				if(randomInt == numEmptyAdjacents + 3) {
-					new Doodlebug(r, c-1, grid);
+					grid->setCellOccupant(r, c, new Doodlebug(r, c-1, grid));
 					hasBred = true;
 				}
 			}
@@ -159,11 +162,17 @@ bool Doodlebug::breed(Grid* grid) {
 
 /**
  * Consumes an Ant, moving into its space and removing it from the board
+ * @param grid The home grid for the doodlebug
+ * @param r The row of the Ant
+ * @param c The column of the Ant
  * @return Whether or not the Ant was eaten successfully
  */
-bool Doodlebug::eat(Grid* grid)
-{
+bool Doodlebug::eat(Grid* grid, int r, int c) {
 	bool status = true;
+
+	delete(grid->getCellOccupant(r, c));
+	grid->setCellOccupant(r, c, this);
+
 	return status;
 }
 

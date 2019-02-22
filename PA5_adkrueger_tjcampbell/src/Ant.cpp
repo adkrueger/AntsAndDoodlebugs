@@ -59,25 +59,25 @@ bool Ant::move(Grid* grid) {
 			int randomInt = (int)(rand() % (numEmptyAdjacents + 1)); // generates a random int from 0 to 3
 			if(canMoveNorth) {
 				if(randomInt == numEmptyAdjacents) {
-					new Ant(r-1, c, grid);
+					grid->setCellOccupant(r, c, new Ant(r-1, c, grid));
 					hasMoved = true;
 				}
 			}
 			if(canMoveEast) {
 				if(randomInt == numEmptyAdjacents + 1) {
-					new Ant(r, c+1, grid);
+					grid->setCellOccupant(r, c, new Ant(r, c+1, grid));
 					hasMoved = true;
 				}
 			}
 			if(canMoveSouth) {
 				if(randomInt == numEmptyAdjacents + 2) {
-					new Ant(r+1, c, grid);
+					grid->setCellOccupant(r, c, new Ant(r+1, c, grid));
 					hasMoved = true;
 				}
 			}
 			if(canMoveWest) {
 				if(randomInt == numEmptyAdjacents + 3) {
-					new Ant(r, c-1, grid);
+					grid->setCellOccupant(r, c, new Ant(r, c-1, grid));
 					hasMoved = true;
 				}
 			}
