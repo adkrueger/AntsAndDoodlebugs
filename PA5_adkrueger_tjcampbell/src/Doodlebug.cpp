@@ -59,7 +59,7 @@ bool Doodlebug::move(Grid* grid) {
 	if(canMoveSouth) { numEmptyAdjacents++; }
 	if(canMoveWest) { numEmptyAdjacents++; }
 
-	if(movesWithoutBreeding >= 0 && numEmptyAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
+	if(numEmptyAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
 		while(!hasMoved) {
 			int randomInt = (int)(rand() % (numEmptyAdjacents + 1)); // generates a random int from 0 to 3
 			if(canMoveNorth) {
