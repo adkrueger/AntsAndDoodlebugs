@@ -16,6 +16,8 @@
  * Creates a Grid of a default number of Cells
  */
 Grid::Grid() {
+	numDoodlebugs = 0;
+	numAnts = 0;
 	// TODO Auto-generated constructor stub
 	Grid(20); //calls general constructor with default value
 	numTimeSteps = 0;
@@ -35,6 +37,8 @@ Grid::Grid() {
  * @param nSquaresOnASide The amount of squares on each side of the board
  */
 Grid::Grid(int nSquaresOnASide) {
+	numDoodlebugs = 0;
+	numAnts = 0;
 	numTimeSteps = 0;
 	n = nSquaresOnASide; //initialize size of grid
 	//we do not want automatic storage for the grid
@@ -62,7 +66,8 @@ void Grid::setCellOccupant(int r, int c, Organism* o) {
 }
 
 /**
- * Returns the occupant of a given Cell
+ * Returns the occupant of a given Cell.
+ * Will not check if r and c are within bounds!
  * @param r the row of the given Cell
  * @param c the column of the given Cell
  * @return A pointer to the organism in the cell

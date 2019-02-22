@@ -19,6 +19,8 @@ private:
 	int numTimeSteps; // starts at 0, when it reaches the number specified by the user game ends
 
 public:
+    int numAnts;
+    int numDoodlebugs;
 	Organism*** orgArray = (Organism***)nullptr;
 	int n=0; //this initial value will be changed when the program is invoked
 	Grid();

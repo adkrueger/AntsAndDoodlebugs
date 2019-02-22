@@ -13,7 +13,6 @@ class Organism;
 
 class Cell {
 protected:
-	//Organism* guest = new Organism();
 	int r;
 	int c;
 public:

@@ -51,6 +51,30 @@ bool Organism::isEmpty(Grid* grid, int r, int c) {
 }
 
 /**
+ * Checks if the organism is able to move in the direction specified by direction.
+ * direction follows cardinal directions, i.e.
+ * 0 = north, 1 = east
+ * 2 = south, 3 = west
+ * Different from isEmpty because it checks whether the given space is within
+ * the bounds of the grid.
+ * @param direction The cardinal direction that the organism will be moving in
+ * @param g The grid that will be checked
+ * @param r The row of the organism
+ * @param c The column of the organism
+ * @return true if the organism can move to this space, false otherwise
+ */
+bool Organism::canMoveHere(int direction, Grid* g, int r, int c) {
+	bool available = false;
+
+	if(r-1 >= 0 && direction == 0) { available = true; }
+	if(c+1 > g->n && direction == 1) { available = true; }
+	if(r+1 > g->n && direction == 2) { available = true; }
+	if(c-1 >= 0 && direction == 3) { available = true; }
+
+	return available;
+}
+
+/**
  * Destructor for an Organism
  * Removes the Organism from the Grid and memory
  */

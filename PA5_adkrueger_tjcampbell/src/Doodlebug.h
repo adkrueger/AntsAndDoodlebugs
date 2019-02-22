@@ -16,12 +16,15 @@ protected:
 	int r;
 	int c;
 	int stepsTilStarve;
+	int movesWithoutBreeding;
+	Grid* grid;
 public:
 	Doodlebug();
-	Doodlebug(int r, int c);
+	Doodlebug(int r, int c, Grid* grid);
 	bool move(Grid* grid);
 	bool breed(Grid* grid);
 	bool eat(Grid* grid);
+	void step(Grid* grid);
 	virtual ~Doodlebug();
 };
 
