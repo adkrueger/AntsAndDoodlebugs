@@ -48,63 +48,94 @@ Doodlebug::Doodlebug(int r, int c, Grid* grid) {
  */
 bool Doodlebug::move(Grid* grid) {
 	bool hasMoved = false;
-	int numEmptyAdjacents = 0; // the number of empty adjacent cells
-	bool canMoveNorth = this->canMoveHere(0, grid, r, c); // space to the north occupied?
-	bool canMoveEast = this->canMoveHere(1, grid, r, c); // space to the east occupied?
-	bool canMoveSouth = this->canMoveHere(2, grid, r, c); // space to the south occupied?
-	bool canMoveWest = this->canMoveHere(3, grid, r, c); // space to the west occupied?
+	bool hasEaten = false;
+	Doodlebug* newDoodle = nullptr; // the new doodlebug to be set on the board when the current one moves
+	int numAvailableAdjacents = 0; // the number of empty adjacent cells
+	bool canMoveNorth = this->doodleCanMoveHere(0, grid, r, c); // space to the north occupied?
+	bool canMoveEast = this->doodleCanMoveHere(1, grid, r, c); // space to the east occupied?
+	bool canMoveSouth = this->doodleCanMoveHere(2, grid, r, c); // space to the south occupied?
+	bool canMoveWest = this->doodleCanMoveHere(3, grid, r, c); // space to the west occupied?
 
-	if(canMoveNorth) { numEmptyAdjacents++; }
-	if(canMoveEast) { numEmptyAdjacents++; }
-	if(canMoveSouth) { numEmptyAdjacents++; }
-	if(canMoveWest) { numEmptyAdjacents++; }
+	if(canMoveNorth) { numAvailableAdjacents++; } // determine the correct number of available adjacent spaces
+	if(canMoveEast) { numAvailableAdjacents++; }
+	if(canMoveSouth) { numAvailableAdjacents++; }
+	if(canMoveWest) { numAvailableAdjacents++; }
 
-	if(numEmptyAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
-		while(!hasMoved) {
-			int randomInt = (int)(rand() % (numEmptyAdjacents + 1)); // generates a random int from 0 to 3
-			if(canMoveNorth) {
-				if(randomInt == numEmptyAdjacents) {
-					new Doodlebug(r-1, c, grid);
+
+	if(numAvailableAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
+		if(!hasMoved) {
+			int randomInt = (int)(rand() % (numAvailableAdjacents + 1)); // generates a random int from 0 to 3
+			if(canMoveNorth && !hasMoved) { // if we can move north and haven't moved yet
+				if(randomInt == numAvailableAdjacents) {
+					newDoodle = new Doodlebug(r-1, c, grid);
+					grid->setCellOccupant(r-1, c, newDoodle); // move the Ant north by creating an Ant in its place
 					hasMoved = true;
 				}
 			}
 			else if (r-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey()) { // if the move is blocked by an Ant, eat it
 				this->eat(grid, r-1, c);
+				hasMoved = true;
+				hasEaten = true;
 			}
-			if(canMoveEast) {
-				if(randomInt == numEmptyAdjacents + 1) {
+			if(canMoveEast && !hasMoved) { // if we can move east and haven't moved yet
+				if(randomInt == numAvailableAdjacents + 1) {
+					newDoodle = new Doodlebug(r, c+1, grid);
+					grid->setCellOccupant(r, c+1, newDoodle); // move the Ant east by creating an Ant in its place
 					new Doodlebug(r, c+1, grid);
 					hasMoved = true;
 				}
 			}
 			else if (c+1 < grid->n && grid->getCellOccupant(r-1, c)->isPrey()) { // if the move is blocked by an Ant, eat it
 				this->eat(grid, r, c+1);
+				hasMoved = true;
+				hasEaten = true;
 			}
-			if(canMoveSouth) {
-				if(randomInt == numEmptyAdjacents + 2) {
+			if(canMoveSouth && !hasMoved) { // if we can move south and haven't moved yet
+				if(randomInt == numAvailableAdjacents + 2) {
+					newDoodle = new Doodlebug(r-1, c, grid);
+					grid->setCellOccupant(r+1, c, newDoodle); // move the Ant south by creating an Ant in its place
 					new Doodlebug(r+1, c, grid);
 					hasMoved = true;
 				}
 			}
 			else if (r+1 < grid->n && grid->getCellOccupant(r-1, c)->isPrey()) { // if the move is blocked by an Ant, eat it
 				this->eat(grid, r+1, c);
+				hasMoved = true;
+				hasEaten = true;
 			}
-			if(canMoveWest) {
-				if(randomInt == numEmptyAdjacents + 3) {
-					new Doodlebug(r, c-1, grid);
+			if(canMoveWest && !hasMoved) { // if we can move west and haven't moved yet
+				if(randomInt == numAvailableAdjacents + 3) {
+					newDoodle = new Doodlebug(r, c-1, grid);
+					grid->setCellOccupant(r, c-1, newDoodle); // move the Ant west by creating an Ant in its place
 					hasMoved = true;
 				}
 			}
 			else if (c-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey()) { // if the move is blocked by an Ant, eat it
 				this->eat(grid, r, c-1);
+				hasMoved = true;
+				hasEaten = true;
 			}
 		}
 	}
+	else { // if there aren't any empty adjacent cells or adjacent cells that contain ants
+		newDoodle = this;
+	}
 
 	if(hasMoved == true) {
-		movesWithoutBreeding = -8;
+		movesWithoutBreeding++;
+		newDoodle->movesWithoutBreeding = this->movesWithoutBreeding; // the moved doodle now has the same count for movesWithoutBreeding + 1
+		newDoodle->stepsTilStarve = this->stepsTilStarve; // the moved doodle now has the same starvation counter
 		delete(this);
 		grid->numDoodlebugs++;
+	}
+	if(hasEaten == true) { // if the doodlebug has eaten, reset its starvation counter
+		newDoodle->stepsTilStarve = 3;
+	}
+	else { // otherwise, decrement it
+		newDoodle->stepsTilStarve--;
+	}
+	if(newDoodle->starve()) { // if the doodlebug starved, delete it
+		delete(newDoodle);
 	}
 	return hasMoved;
 }
@@ -127,44 +158,44 @@ bool Doodlebug::breed(Grid* grid) {
 	bool canBreedSouth = this->canMoveHere(2, grid, r, c); // space to the south occupied?
 	bool canBreedWest = this->canMoveHere(3, grid, r, c); // space to the west occupied?
 
-	if(canBreedNorth) { numEmptyAdjacents++; }
+	if(canBreedNorth) { numEmptyAdjacents++; } // find the correct number of empty adjacent cells
 	if(canBreedEast) { numEmptyAdjacents++; }
 	if(canBreedSouth) { numEmptyAdjacents++; }
 	if(canBreedWest) { numEmptyAdjacents++; }
 
 	if(movesWithoutBreeding >= 0 && numEmptyAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
-		while(!hasBred) {
-			int randomInt = (int)(rand() % (numEmptyAdjacents + 1)); // generates a random int from 0 to 3
+		if(!hasBred) {
+			int randomInt = (int)(rand() % (numEmptyAdjacents + 1)); // generates a random int from 0 to numEmptyAdjacents
 			if(canBreedNorth) {
 				if(randomInt == numEmptyAdjacents) {
-					grid->setCellOccupant(r, c, new Doodlebug(r-1, c, grid));
+					grid->setCellOccupant(r, c, new Doodlebug(r-1, c, grid)); // create a new Doodlebug to the north
 					hasBred = true;
 				}
 			}
 			if(canBreedEast) {
 				if(randomInt == numEmptyAdjacents + 1) {
-					grid->setCellOccupant(r, c, new Doodlebug(r, c+1, grid));
+					grid->setCellOccupant(r, c, new Doodlebug(r, c+1, grid)); // create a new Doodlebug to the east
 					hasBred = true;
 				}
 			}
 			if(canBreedSouth) {
 				if(randomInt == numEmptyAdjacents + 2) {
-					grid->setCellOccupant(r, c, new Doodlebug(r+1, c, grid));
+					grid->setCellOccupant(r, c, new Doodlebug(r+1, c, grid)); // create a new Doodlebug to the south
 					hasBred = true;
 				}
 			}
 			if(canBreedWest) {
 				if(randomInt == numEmptyAdjacents + 3) {
-					grid->setCellOccupant(r, c, new Doodlebug(r, c-1, grid));
+					grid->setCellOccupant(r, c, new Doodlebug(r, c-1, grid)); // create a new Doodlebug to the west
 					hasBred = true;
 				}
 			}
 		}
 	}
 
-	if(hasBred == true) {
-		movesWithoutBreeding = -8;
-		grid->numDoodlebugs++;
+	if(hasBred == true) { // if the doodlebug bred
+		movesWithoutBreeding = -8; // reset the breeding counter
+		grid->numDoodlebugs++; // increment the number of doodlebugs on the board
 	}
 	return hasBred;
 }
@@ -179,8 +210,8 @@ bool Doodlebug::breed(Grid* grid) {
 bool Doodlebug::eat(Grid* grid, int r, int c) {
 	bool status = true;
 
-	delete(grid->getCellOccupant(r, c));
-	grid->setCellOccupant(r, c, this);
+	delete(grid->getCellOccupant(r, c)); // delete the ant in the space
+	grid->setCellOccupant(r, c, this); // then move the doodlebug there
 
 	return status;
 }
@@ -191,6 +222,14 @@ bool Doodlebug::eat(Grid* grid, int r, int c) {
 void Doodlebug::step(Grid* grid) {
 	this->move(grid);
 	this->breed(grid);
+}
+
+/**
+ * Checks whether the Doodlebug will starve
+ * @return true if the Doodlebug starved, false otherwise
+ */
+bool Doodlebug::starve() {
+	return(this->stepsTilStarve <= 0);
 }
 
 /**

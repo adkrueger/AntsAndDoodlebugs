@@ -81,8 +81,8 @@ Organism* Grid::getCellOccupant(int r, int c) {
 void Grid::step() {
 	for(int r = 0; r < n; r++) {
 		for(int c = 0; c < n; c++) {
-			if (&*orgArray[r][c] != nullptr) {
-				orgArray[r][c]->move(this);
+			if (orgArray[r][c] != nullptr) { // if the space isn't empty
+				orgArray[r][c]->step(this); // then cause the Organism to take a step
 			}
 		}
 	}
@@ -94,12 +94,12 @@ void Grid::step() {
  */
 char Grid::getLetter(int r, int c) {
 	Organism* org = orgArray[r][c];
-	char val = '0';
+	char val = ' ';
 
-	if((*org).isPrey() == true) {
+	if((*org).isPrey() == true && org != nullptr) { // if the organism is an Ant (and not an empty space, which are initialized with amAnt = true)
 		return 'A';
 	}
-	else if((*org).isPrey() == false) {
+	else if((*org).isPrey() == false) { // if the organism is a Doodlebug
 		return 'D';
 	}
 
@@ -109,7 +109,7 @@ char Grid::getLetter(int r, int c) {
  * Prints out the grid in a format corresponding to what is in each Cell
  * D if the organism is a Doodlebug
  * A if the organism is an Ant
- * 0 if the cell is empty
+ * ' ' (empty space) if the cell is empty
  * @param grid The grid to be printed
  * @param r The number of rows in the grid
  * @param c The number of columns in the grid

@@ -12,6 +12,7 @@ class Grid;
 
 class Organism {
 protected:
+	bool amAnt = true;
 	int stepsTilBreed; // starts at 0, used as a counter to determine when the organism breeds
 public:
 	Organism();
@@ -24,6 +25,7 @@ public:
 	bool isEmpty(Grid* grid, int r, int c);
 	void setAmAnt(bool b);
 	bool canMoveHere(int direction, Grid* g, int r, int c);
+	bool doodleCanMoveHere(int direction, Grid* g, int r, int c);
 	virtual ~Organism();
 };
 
