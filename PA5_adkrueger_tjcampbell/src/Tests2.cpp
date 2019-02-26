@@ -86,7 +86,6 @@ bool Tests2::gridTest()
 		ok2 = false;
 	}
 	//std::cout << "third grid test" << std::endl;
-   // delete(&myGrid);
 	result = ok1 && ok2;
 	return result;
 }
@@ -100,7 +99,11 @@ bool Tests2::makeAntsTest()
 	bool result = true;
 	bool ok1 = true;
 	bool ok2 = true;
-/*
+// TODO Theo when you work on this don't bother using some of what they wrote cause it's garbo
+	// also delete this comment when you're done lol
+
+
+	/*
 	std::cout << "Running the make ants test" << std::endl;
 
 	Grid* myGrid_p = new Grid(9);

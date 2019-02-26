@@ -120,10 +120,9 @@ void Grid::printGrid() {
  * Destroys the given Grid, going row by row and removing each Cell from memory
  */
 Grid::~Grid() {
-	//TODO: make destructor!
-//	for(int r=0; r < n; r++) {
-		//delete[] orgArray[r];
-	//}
-	//orgArray = (Organism***)nullptr;
+	for(int r=0; r < n; r++) {
+		delete[] orgArray[r];
+	}
+	orgArray = (Organism***)nullptr;
 }
 

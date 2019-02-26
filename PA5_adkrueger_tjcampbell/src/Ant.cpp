@@ -165,7 +165,6 @@ void Ant::step(Grid* grid) {
  * Clears memory formerly held by an Ant
  */
 Ant::~Ant() {
-	// TODO Auto-generated destructor stub
     grid->numAnts--;
     grid->setCellOccupant(r, c, (Organism*)nullptr);
 }

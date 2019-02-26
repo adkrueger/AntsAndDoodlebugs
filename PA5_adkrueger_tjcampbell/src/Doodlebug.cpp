@@ -214,7 +214,7 @@ bool Doodlebug::eat(Grid* grid, int r, int c) {
 void Doodlebug::step(Grid* grid) {
 	this->move(grid);
 	if(this->starve()) {
-		delete(this);
+		delete this;
 	}
 	else {
 		this->breed(grid);
@@ -234,7 +234,6 @@ bool Doodlebug::starve() {
  * Removes the Doodlebug from the board and from its space held in memory
  */
 Doodlebug::~Doodlebug() {
-	// TODO Auto-generated destructor stub
 	grid->numDoodlebugs--;
 	grid->setCellOccupant(r, c, (Organism*)nullptr);
 }
