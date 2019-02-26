@@ -17,17 +17,14 @@
 Grid::Grid() {
 	numDoodlebugs = 0;
 	numAnts = 0;
-	// TODO Auto-generated constructor stub
 	Grid(20); //calls general constructor with default value
 	numTimeSteps = 0;
-	orgArray = (Organism***) malloc(n * sizeof(Organism**));
-	// Each entry is a pointer to a row
+	orgArray = new Organism**[n]; // the array is an array of n arrays, each of which contains n pointers to organisms
 	for (int i = 0; i < n; i++) {
-		orgArray[i] = (Organism**) malloc(n * sizeof(Organism*)); // Each row is an array of pointers to Organisms
+		orgArray[i] = new Organism*[n]; // Each row is an array of pointers to Organisms
 		for(int j = 0; j < n; j++) {
 			orgArray[i][j] = nullptr; // each organism initially points to nullptr (empty)
 		}
-
 	}
 }
 
@@ -40,14 +37,9 @@ Grid::Grid(int nSquaresOnASide) {
 	numAnts = 0;
 	numTimeSteps = 0;
 	n = nSquaresOnASide; //initialize size of grid
-	//we do not want automatic storage for the grid
-
-	//*orgArray = new Organism* [n];  //first allocate array of row pointers
-
-	orgArray = (Organism***) malloc(n * sizeof(Organism**));
-	// Each entry is a pointer to a row
+	orgArray = new Organism**[n]; // the array is an array of n arrays, each of which contains n pointers to organisms
 	for (int i = 0; i < n; i++) {
-		orgArray[i] = (Organism**) malloc(n * sizeof(Organism*)); // Each row is an array of pointers to Organisms
+		orgArray[i] = new Organism*[n]; // Each row is an array of pointers to Organisms
 		for(int j = 0; j < n; j++) {
 			orgArray[i][j] = nullptr; // each organism initially points to nullptr (empty)
 		}
@@ -129,11 +121,8 @@ void Grid::printGrid() {
  */
 Grid::~Grid() {
 	//TODO: make destructor!
-	//for(int r=0; r < n; r++) {
-		//for(int c=0; c < n; c++) {
-		//	//cout << "Before freeing" << r << c << endl;
-			//(*orgArray[r][c]).~Organism(); // free memory for columns in each row
-		//}
+//	for(int r=0; r < n; r++) {
+		//delete[] orgArray[r];
 	//}
 	//orgArray = (Organism***)nullptr;
 }

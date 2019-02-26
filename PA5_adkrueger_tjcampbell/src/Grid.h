@@ -14,7 +14,6 @@ class Organism;
 class Grid {
 private:
 	int numTimeSteps; // starts at 0, when it reaches the number specified by the user game ends
-
 public:
     int numAnts;
     int numDoodlebugs;

@@ -44,7 +44,6 @@ Ant::Ant(int r, int c, Grid* grid)
 bool Ant::move(Grid* grid) {
 	bool hasMoved = false; // whether the ant has moved
 	int numEmptyAdjacents = 0; // the number of empty adjacent cells
-	Ant* newAnt = nullptr; // the ant that will take the place of this ant (assuming it moves
 	bool canMoveNorth = this->canMoveHere(0, grid, r, c); // space to the north occupied?
 	bool canMoveEast = this->canMoveHere(1, grid, r, c); // space to the east occupied?
 	bool canMoveSouth = this->canMoveHere(2, grid, r, c); // space to the south occupied?
@@ -60,45 +59,36 @@ bool Ant::move(Grid* grid) {
 			int randomInt = (int)(rand() % (numEmptyAdjacents + 1)); // generates a random int from 0 to 3
 			if(canMoveNorth && !hasMoved) { // if we can move north and haven't moved yet
 				if(randomInt == numEmptyAdjacents) {
-					newAnt = new Ant(r-1, c, grid);
-					grid->setCellOccupant(r-1, c, newAnt); // move the Ant north by creating an Ant in its place
+					grid->setCellOccupant(r-1, c, this); // move the Ant north by creating an Ant in its place
+					r--;
 					hasMoved = true;
 				}
 			}
 			if(canMoveEast && !hasMoved) { // if we can move east and haven't moved yet
 				if(randomInt == numEmptyAdjacents + 1) {
-					newAnt = new Ant(r, c+1, grid);
-					grid->setCellOccupant(r, c+1, newAnt); // move the Ant east by creating an Ant in its place
+					grid->setCellOccupant(r, c+1, this); // move the Ant east by creating an Ant in its place
+					c++;
 					hasMoved = true;
 				}
 			}
 			if(canMoveSouth && !hasMoved) { // if we can move south and haven't moved yet
 				if(randomInt == numEmptyAdjacents + 2) {
-					newAnt = new Ant(r+1, c, grid);
-					grid->setCellOccupant(r+1, c, newAnt); // move the Ant south by creating an Ant in its place
+					grid->setCellOccupant(r+1, c, this); // move the Ant south by creating an Ant in its place
+					r++;
 					hasMoved = true;
 				}
 			}
 			if(canMoveWest && !hasMoved) { // if we can move west and haven't moved yet
 				if(randomInt == numEmptyAdjacents + 3) {
-					newAnt = new Ant(r, c-1, grid);
-					grid->setCellOccupant(r, c-1, newAnt); // move the Ant west by creating an Ant in its place
+					grid->setCellOccupant(r, c-1, this); // move the Ant west by creating an Ant in its place
+					c--;
 					hasMoved = true;
 				}
 			}
 		}
 	}
-	else { // if there aren't any empty adjacent cells
-		newAnt = this; // have newAnt point to the current ant (even though it stays in the same spot)
-	}
 
-
-	if(hasMoved == true) {
-		movesWithoutBreeding++;
-		newAnt->movesWithoutBreeding = this->movesWithoutBreeding; // the moved Ant now has the same count for movesWithoutBreeding + 1
-		grid->numAnts++; // increase the number of Ants, as the destructor removes one
-		delete(this);
-	}
+	movesWithoutBreeding++;
 	return hasMoved;
 }
 

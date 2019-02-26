@@ -49,7 +49,6 @@ Doodlebug::Doodlebug(int r, int c, Grid* grid) {
 bool Doodlebug::move(Grid* grid) {
 	bool hasMoved = false;
 	bool hasEaten = false;
-	Doodlebug* newDoodle = nullptr; // the new doodlebug to be set on the board when the current one moves
 	int numAvailableAdjacents = 0; // the number of empty adjacent cells
 	bool canMoveNorth = this->doodleCanMoveHere(0, grid, r, c); // space to the north occupied?
 	bool canMoveEast = this->doodleCanMoveHere(1, grid, r, c); // space to the east occupied?
@@ -67,75 +66,68 @@ bool Doodlebug::move(Grid* grid) {
 			int randomInt = (int)(rand() % (numAvailableAdjacents + 1)); // generates a random int from 0 to 3
 			if(canMoveNorth && !hasMoved) { // if we can move north and haven't moved yet
 				if(randomInt == numAvailableAdjacents) {
-					newDoodle = new Doodlebug(r-1, c, grid);
-					grid->setCellOccupant(r-1, c, newDoodle); // move the Ant north by creating an Ant in its place
+					grid->setCellOccupant(r-1, c, this); // move the Ant north by creating an Ant in its place
+					r--;
 					hasMoved = true;
 				}
 			}
-			else if (r-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey()) { // if the move is blocked by an Ant, eat it
+			else if (r-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
 				this->eat(grid, r-1, c);
+				r--;
 				hasMoved = true;
 				hasEaten = true;
 			}
 			if(canMoveEast && !hasMoved) { // if we can move east and haven't moved yet
 				if(randomInt == numAvailableAdjacents + 1) {
-					newDoodle = new Doodlebug(r, c+1, grid);
-					grid->setCellOccupant(r, c+1, newDoodle); // move the Ant east by creating an Ant in its place
-					new Doodlebug(r, c+1, grid);
+					grid->setCellOccupant(r, c+1, this); // move the Ant east by creating an Ant in its place
+					c++;
 					hasMoved = true;
 				}
 			}
-			else if (c+1 < grid->n && grid->getCellOccupant(r-1, c)->isPrey()) { // if the move is blocked by an Ant, eat it
+			else if (c+1 < grid->n && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
 				this->eat(grid, r, c+1);
+		        c++;
 				hasMoved = true;
 				hasEaten = true;
 			}
 			if(canMoveSouth && !hasMoved) { // if we can move south and haven't moved yet
 				if(randomInt == numAvailableAdjacents + 2) {
-					newDoodle = new Doodlebug(r-1, c, grid);
-					grid->setCellOccupant(r+1, c, newDoodle); // move the Ant south by creating an Ant in its place
-					new Doodlebug(r+1, c, grid);
+					grid->setCellOccupant(r+1, c, this); // move the Ant south by creating an Ant in its place
+					r++;
 					hasMoved = true;
 				}
 			}
-			else if (r+1 < grid->n && grid->getCellOccupant(r-1, c)->isPrey()) { // if the move is blocked by an Ant, eat it
+			else if (r+1 < grid->n && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
 				this->eat(grid, r+1, c);
+				r++;
 				hasMoved = true;
 				hasEaten = true;
 			}
 			if(canMoveWest && !hasMoved) { // if we can move west and haven't moved yet
 				if(randomInt == numAvailableAdjacents + 3) {
-					newDoodle = new Doodlebug(r, c-1, grid);
-					grid->setCellOccupant(r, c-1, newDoodle); // move the Ant west by creating an Ant in its place
+					grid->setCellOccupant(r, c-1, this); // move the Ant west by creating an Ant in its place
+					c--;
 					hasMoved = true;
 				}
 			}
-			else if (c-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey()) { // if the move is blocked by an Ant, eat it
+			else if (c-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
 				this->eat(grid, r, c-1);
+				c--;
 				hasMoved = true;
 				hasEaten = true;
 			}
 		}
 	}
-	else { // if there aren't any empty adjacent cells or adjacent cells that contain ants
-		newDoodle = this;
-	}
 
 	if(hasMoved == true) {
 		movesWithoutBreeding++;
-		newDoodle->movesWithoutBreeding = this->movesWithoutBreeding; // the moved doodle now has the same count for movesWithoutBreeding + 1
-		newDoodle->stepsTilStarve = this->stepsTilStarve; // the moved doodle now has the same starvation counter
-		delete(this);
 		grid->numDoodlebugs++;
 	}
 	if(hasEaten == true) { // if the doodlebug has eaten, reset its starvation counter
-		newDoodle->stepsTilStarve = 3;
+		stepsTilStarve = 3;
 	}
 	else { // otherwise, decrement it
-		newDoodle->stepsTilStarve--;
-	}
-	if(newDoodle->starve()) { // if the doodlebug starved, delete it
-		delete(newDoodle);
+		stepsTilStarve--;
 	}
 	return hasMoved;
 }
@@ -221,7 +213,12 @@ bool Doodlebug::eat(Grid* grid, int r, int c) {
  */
 void Doodlebug::step(Grid* grid) {
 	this->move(grid);
-	this->breed(grid);
+	if(this->starve()) {
+		delete(this);
+	}
+	else {
+		this->breed(grid);
+	}
 }
 
 /**

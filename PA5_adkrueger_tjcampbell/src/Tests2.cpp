@@ -86,8 +86,7 @@ bool Tests2::gridTest()
 		ok2 = false;
 	}
 	//std::cout << "third grid test" << std::endl;
-//	myGrid.~Grid();
-
+   // delete(&myGrid);
 	result = ok1 && ok2;
 	return result;
 }
