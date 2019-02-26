@@ -11,7 +11,10 @@
  * Default constructor for an Organism
  */
 Organism::Organism() {
-	stepsTilBreed = 0;
+	movesWithoutBreeding = 0;
+	r = 0;
+	c = 0;
+	grid = nullptr;
 }
 
 /**
@@ -20,7 +23,10 @@ Organism::Organism() {
  */
 Organism::Organism(bool b) {
 	amAnt = b;
-	stepsTilBreed = 0;
+	movesWithoutBreeding = 0;
+	r = 0;
+	c = 0;
+	grid = nullptr;
 }
 
 /**
@@ -112,6 +118,6 @@ bool Organism::doodleCanMoveHere(int direction, Grid* g, int r, int c) {
  * Removes the Organism from the Grid and memory
  */
 Organism::~Organism() {
-
+    grid->setCellOccupant(r, c, (Organism*)nullptr);
 }
 

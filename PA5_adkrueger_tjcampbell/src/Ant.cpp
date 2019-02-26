@@ -177,5 +177,6 @@ void Ant::step(Grid* grid) {
 Ant::~Ant() {
 	// TODO Auto-generated destructor stub
     grid->numAnts--;
+    grid->setCellOccupant(r, c, (Organism*)nullptr);
 }
 

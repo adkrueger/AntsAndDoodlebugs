@@ -13,11 +13,7 @@
 
 class Doodlebug: public Organism {
 protected:
-	int r;
-	int c;
 	int stepsTilStarve;
-	int movesWithoutBreeding;
-	Grid* grid;
 public:
 	Doodlebug();
 	Doodlebug(int r, int c, Grid* grid);

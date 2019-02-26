@@ -13,7 +13,10 @@ class Grid;
 class Organism {
 protected:
 	bool amAnt = true;
-	int stepsTilBreed; // starts at 0, used as a counter to determine when the organism breeds
+	int r;
+	int c;
+	int movesWithoutBreeding;
+	Grid* grid;
 public:
 	Organism();
 	Organism(bool b);

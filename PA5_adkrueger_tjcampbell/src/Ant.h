@@ -13,11 +13,6 @@
 
 
 class Ant: public Organism {
-protected:
-	int r;
-	int c;
-    int movesWithoutBreeding = -3; // incremented, after 3 steps will attempt to breed
-    Grid* grid;
 public:
 	Ant();
 	Ant(int r, int c, Grid* grid);

@@ -239,5 +239,6 @@ bool Doodlebug::starve() {
 Doodlebug::~Doodlebug() {
 	// TODO Auto-generated destructor stub
 	grid->numDoodlebugs--;
+	grid->setCellOccupant(r, c, (Organism*)nullptr);
 }
 
