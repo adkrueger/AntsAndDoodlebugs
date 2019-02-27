@@ -89,18 +89,18 @@ char Grid::getLetter(int r, int c) {
 	char val = ' ';
 
 	if((*org).isPrey() == true && org != nullptr) { // if the organism is an Ant (and not an empty space, which are initialized with amAnt = true)
-		return 'A';
+		return 'o';
 	}
 	else if((*org).isPrey() == false) { // if the organism is a Doodlebug
-		return 'D';
+		return 'x';
 	}
 
 	return val;
 }
 /**
  * Prints out the grid in a format corresponding to what is in each Cell
- * D if the organism is a Doodlebug
- * A if the organism is an Ant
+ * x if the organism is a Doodlebug
+ * o if the organism is an Ant
  * ' ' (empty space) if the cell is empty
  * @param grid The grid to be printed
  * @param r The number of rows in the grid
