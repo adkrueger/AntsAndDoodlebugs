@@ -71,10 +71,18 @@ bool Organism::isEmpty(Grid* grid, int r, int c) {
 bool Organism::canMoveHere(int direction, Grid* g, int r, int c) {
 	bool available = false;
 
-	if(r-1 >= 0 && direction == 0) { available = true; }
-	if(c+1 > g->n && direction == 1) { available = true; }
-	if(r+1 > g->n && direction == 2) { available = true; }
-	if(c-1 >= 0 && direction == 3) { available = true; }
+	if(direction == 0 && r-1 >= 0 && g->getCellOccupant(r-1, c)->isEmpty(g, r-1, c)) {
+		available = true;
+	}
+	if(direction == 1 && c+1 > g->n && g->getCellOccupant(r, c+1)->isEmpty(g, r, c+1)) {
+		available = true;
+	}
+	if(direction == 2 && r+1 > g->n && g->getCellOccupant(r+1, c)->isEmpty(g, r+1, c)) {
+		available = true;
+	}
+	if(direction == 3 && c-1 >= 0&& g->getCellOccupant(r, c-1)->isEmpty(g, r, c-1)) {
+		available = true;
+	}
 
 	return available;
 }
