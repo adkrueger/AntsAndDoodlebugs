@@ -63,9 +63,9 @@ bool Doodlebug::move(Grid* grid) {
 
 	if(numAvailableAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
 		if(!hasMoved) {
-			int randomInt = (int)(rand() % (numAvailableAdjacents + 1)); // generates a random int from 0 to 3
+			int randomInt = (int)(rand() % 4); // generates a random int from 0 to 3
 			if(canMoveNorth && !hasMoved) { // if we can move north and haven't moved yet
-				if(randomInt == numAvailableAdjacents) {
+				if(randomInt == 0) {
 					grid->setCellOccupant(r-1, c, this); // move the Ant north by creating an Ant in its place
 					r--;
 					hasMoved = true;
@@ -78,7 +78,7 @@ bool Doodlebug::move(Grid* grid) {
 				hasEaten = true;
 			}
 			if(canMoveEast && !hasMoved) { // if we can move east and haven't moved yet
-				if(randomInt == numAvailableAdjacents + 1) {
+				if(randomInt == 1) {
 					grid->setCellOccupant(r, c+1, this); // move the Ant east by creating an Ant in its place
 					c++;
 					hasMoved = true;
@@ -91,7 +91,7 @@ bool Doodlebug::move(Grid* grid) {
 				hasEaten = true;
 			}
 			if(canMoveSouth && !hasMoved) { // if we can move south and haven't moved yet
-				if(randomInt == numAvailableAdjacents + 2) {
+				if(randomInt == 2) {
 					grid->setCellOccupant(r+1, c, this); // move the Ant south by creating an Ant in its place
 					r++;
 					hasMoved = true;
@@ -104,7 +104,7 @@ bool Doodlebug::move(Grid* grid) {
 				hasEaten = true;
 			}
 			if(canMoveWest && !hasMoved) { // if we can move west and haven't moved yet
-				if(randomInt == numAvailableAdjacents + 3) {
+				if(randomInt == 3) {
 					grid->setCellOccupant(r, c-1, this); // move the Ant west by creating an Ant in its place
 					c--;
 					hasMoved = true;
@@ -157,27 +157,27 @@ bool Doodlebug::breed(Grid* grid) {
 
 	if(movesWithoutBreeding >= 0 && numEmptyAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
 		if(!hasBred) {
-			int randomInt = (int)(rand() % (numEmptyAdjacents + 1)); // generates a random int from 0 to numEmptyAdjacents
+			int randomInt = (int)(rand() % 4); // generates a random int from 0 to numEmptyAdjacents
 			if(canBreedNorth) {
-				if(randomInt == numEmptyAdjacents) {
+				if(randomInt == 0) {
 					grid->setCellOccupant(r, c, new Doodlebug(r-1, c, grid)); // create a new Doodlebug to the north
 					hasBred = true;
 				}
 			}
 			if(canBreedEast) {
-				if(randomInt == numEmptyAdjacents + 1) {
+				if(randomInt == 1) {
 					grid->setCellOccupant(r, c, new Doodlebug(r, c+1, grid)); // create a new Doodlebug to the east
 					hasBred = true;
 				}
 			}
 			if(canBreedSouth) {
-				if(randomInt == numEmptyAdjacents + 2) {
+				if(randomInt == 2) {
 					grid->setCellOccupant(r, c, new Doodlebug(r+1, c, grid)); // create a new Doodlebug to the south
 					hasBred = true;
 				}
 			}
 			if(canBreedWest) {
-				if(randomInt == numEmptyAdjacents + 3) {
+				if(randomInt == 3) {
 					grid->setCellOccupant(r, c, new Doodlebug(r, c-1, grid)); // create a new Doodlebug to the west
 					hasBred = true;
 				}
