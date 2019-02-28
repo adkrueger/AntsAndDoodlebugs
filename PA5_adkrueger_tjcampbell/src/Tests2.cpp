@@ -11,10 +11,10 @@
 #include "Doodlebug.h"
 #include <iostream>
 
-
+/**
+ * Calls a constructor to create a test object that allows us to run tests
+ */
 Tests2::Tests2() {
-	// TODO Auto-generated constructor stub
-	//initialize the grid
 }
 
 /**
@@ -123,6 +123,10 @@ bool Tests2::gridTest()
 		ok2 = false;
 	}
 	//std::cout << "third grid test" << std::endl;
+
+	myGrid.printGrid();
+	puts("(The default grid of size 20, which is completely empty except for an Ant)");
+	delete ant;
 	result = ok1 && ok2;
 	return result;
 }
@@ -137,17 +141,21 @@ bool Tests2::makeAntsTest() {
 
 	std::cout << "Running the make ants test" << std::endl;
 
-	Grid* myGrid_p = new Grid(9, 0, 0, 0, 0, 0);
+	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
 	if(myGrid_p->getCellOccupant(1, 2)!= nullptr)
 	{
 		std::cout << "Cell 1,2 not initially empty" << std::endl;
 	}
+	puts("The grid before an Ant is added");
+	myGrid_p->printGrid();
 	Ant* ant = new Ant(1, 2, myGrid_p);
 	myGrid_p->setCellOccupant(1, 2, ant);
 	if(myGrid_p->getCellOccupant(1, 2)!= ant) {
 		std::cout << "Cell not set to ant" << std::endl;
 		ok1 = false;
 	}
+	puts("The grid after an Ant is added");
+	myGrid_p->printGrid();
 
 	delete ant;
 	delete myGrid_p;
@@ -166,14 +174,17 @@ bool Tests2::antsMoveTest() {
 
 	Grid* myGrid = new Grid(2, 0, 0, 0, 0, 0);
 	Ant* myAnt = new Ant(1,1,myGrid);
+	puts("The grid before the Ant moves");
+	myGrid->printGrid();
 	myAnt->move(myGrid);
 	if (myGrid->getCellOccupant(1,1) == nullptr) { // if the ant is not in the same location, it moved
 		result = true;
 	}
+	puts("The grid after the Ant moves");
+	myGrid->printGrid();
 
 	delete myAnt;
 	delete myGrid;
-
 	return result;
 }
 
@@ -183,7 +194,7 @@ bool Tests2::antsMoveTest() {
  */
 bool Tests2::antsDontMoveTest() {
 	bool result = true;
-
+	puts("Running the ants don't move test");
 	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
 	Ant* a1 = new Ant(0,1,myGrid_p);
 	Ant* a2 = new Ant(1,0,myGrid_p);
@@ -194,14 +205,26 @@ bool Tests2::antsDontMoveTest() {
 	Ant* a7 = new Ant(0,1,myGrid_p);
 	Ant* a8 = new Ant(2,2,myGrid_p);
 	Ant* a9 = new Ant(2,0,myGrid_p);
-	result = a3->move(myGrid_p);
+	result = !a3->move(myGrid_p);
 
+	puts("The grid before the Ant attempts to move");
+	myGrid_p->printGrid();
 	a3->move(myGrid_p);
+	puts("The grid after the Ant attempts to move (the exact same)");
+	myGrid_p->printGrid();
 	if(myGrid_p->getCellOccupant(1, 1) != a3) {
 		result = false;
 	}
 
-
+	delete a1;
+	delete a2;
+	delete a3;
+	delete a4;
+	delete a5;
+	delete a6;
+	delete a7;
+	delete a8;
+	delete a9;
 	return result;
 }
 
@@ -216,13 +239,18 @@ bool Tests2::antsBreedTest()
 	std::cout << "Running the breed ants test" << std::endl;
 	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
 	Ant* a1 = new Ant(1,1,myGrid_p);
+	puts("The grid before the Ant breeds");
+	myGrid_p->printGrid();
 	a1->breed(myGrid_p);
-
+	puts("The grid after the Ant breeds");
+	myGrid_p->printGrid();
 	if(myGrid_p->getCellOccupant(1, 2) == nullptr && myGrid_p->getCellOccupant(1, 0) == nullptr
 			&& myGrid_p->getCellOccupant(2, 1) == nullptr && myGrid_p->getCellOccupant(0, 1) == nullptr){
 		result = false;
 	}
 
+	delete a1;
+	delete myGrid_p;
 	return result;
 }
 /**
@@ -232,7 +260,7 @@ bool Tests2::antsBreedTest()
 bool Tests2::antsDontBreedTest()
 {
 	bool result = false;
-	std::cout << "Running the breed ants test" << std::endl;
+	std::cout << "Running the ants don't breed test" << std::endl;
 	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
 	Ant* a1 = new Ant(1,1,myGrid_p);
 	Ant* a2 = new Ant(1,0,myGrid_p);
@@ -243,13 +271,27 @@ bool Tests2::antsDontBreedTest()
 	Ant* a7 = new Ant(0,1,myGrid_p);
 	Ant* a8 = new Ant(2,2,myGrid_p);
 	Ant* a9 = new Ant(2,0,myGrid_p);
+	puts("The grid before the Ant attempts to breed");
+	myGrid_p->printGrid();
 	a1->breed(myGrid_p);
+	puts("The grid after the Ant attempts to breed (the exact same)");
+	myGrid_p->printGrid();
 
 	if(myGrid_p->getCellOccupant(1, 2) == a4 && myGrid_p->getCellOccupant(1, 0)     == a2
 			&& myGrid_p->getCellOccupant(2, 1) == a5 && myGrid_p->getCellOccupant(0, 1) == a7 ){
 		result = true;
 	}
 
+	delete a1;
+	delete a2;
+	delete a3;
+	delete a4;
+	delete a5;
+	delete a6;
+	delete a7;
+	delete a8;
+	delete a9;
+	delete myGrid_p;
 	return result;
 }
 /**
@@ -263,14 +305,19 @@ bool Tests2::antsDieTest()
 	std::cout << "Running the ants die test" << std::endl;
 	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
 	Ant* a1 = new Ant(1,1,myGrid_p);
+	puts("The grid before the Ant dies");
+	myGrid_p->printGrid();
 	if(myGrid_p->getCellOccupant(1, 1) == a1){
 		result = true;
 	}
 	a1->~Ant();
+	puts("The grid after the Ant dies");
+	myGrid_p->printGrid();
 	if(myGrid_p->getCellOccupant(1, 1) == nullptr){
 		result2 = true;
 	}
 
+	delete myGrid_p;
 	return result && result2;
 }
 
@@ -284,12 +331,17 @@ bool Tests2::makeDoodlesTest()
 	bool result = false;
 	std::cout << "Running the make doodlebugs test" << std::endl;
 	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
+	puts("The grid before the Doodlebug is constructed");
+	myGrid_p->printGrid();
 	Doodlebug* d1 = new Doodlebug(0,0,myGrid_p);
+	puts("The grid after the Doodlebug is constructed");
+	myGrid_p->printGrid();
 	if(myGrid_p->getCellOccupant(0, 0) == d1){
 		result = true;
 	}
 
-
+	delete d1;
+	delete myGrid_p;
 	return result;
 }
 
@@ -303,10 +355,17 @@ bool Tests2::doodleMoveTest()
 	std::cout << "Running the move doodlebugs test" << std::endl;
 	Grid* myGrid = new Grid(2, 0, 0, 0, 0, 0);
 	Doodlebug* d1 = new Doodlebug(1,1,myGrid);
+	puts("The grid before the Doodlebug moves");
+	myGrid->printGrid();
 	d1->move(myGrid);
+	puts("The grid after the Doodlebug moves");
+	myGrid->printGrid();
 	if (myGrid->getCellOccupant(1,1) != nullptr) { // if the ant is in the same location, it didn't move
 		result = false;
 	}
+
+	delete d1;
+	delete myGrid;
 	return result;
 }
 /**
@@ -316,18 +375,30 @@ bool Tests2::doodleMoveTest()
 bool Tests2::doodleDontMoveTest()
 {
 	bool result = true;
+	puts("Running the doodles don't move test");
 	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
-	Doodlebug* a1 = new Doodlebug(0,1,myGrid_p);
-	Doodlebug* a2 = new Doodlebug(1,0,myGrid_p);
-	Doodlebug* a3 = new Doodlebug(1,1,myGrid_p);
-	Doodlebug* a4 = new Doodlebug(1,2,myGrid_p);
-	Doodlebug* a5 = new Doodlebug(2,1,myGrid_p);
+	Doodlebug* d1 = new Doodlebug(0,1,myGrid_p);
+	Doodlebug* d2 = new Doodlebug(1,0,myGrid_p);
+	Doodlebug* d3 = new Doodlebug(1,1,myGrid_p);
+	Doodlebug* d4 = new Doodlebug(1,2,myGrid_p);
+	Doodlebug* d5 = new Doodlebug(2,1,myGrid_p);
 
-	a3->move(myGrid_p);
-	if(myGrid_p->getCellOccupant(1, 1) != a3){
+	puts("The grid before the Doodlebug attempts to move");
+	myGrid_p->printGrid();
+	d3->move(myGrid_p);
+	puts("The grid after the Doodlebug attempts to move (the exact same)");
+	myGrid_p->printGrid();
+
+	if(myGrid_p->getCellOccupant(1, 1) != d3){
 		result = false;
 	}
 
+	delete d1;
+	delete d2;
+	delete d3;
+	delete d4;
+	delete d5;
+	delete myGrid_p;
 	return result;
 }
 
@@ -340,13 +411,20 @@ bool Tests2::doodleBreedTest()
 	bool result = true;
 	std::cout << "Running the breed doodlebugs test" << std::endl;
 	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
-	Doodlebug* a1 = new Doodlebug(1,1,myGrid_p);
-	a1->breed(myGrid_p);
+	Doodlebug* d1 = new Doodlebug(1,1,myGrid_p);
+	puts("The grid before the Doodlebug attempts to breed");
+	myGrid_p->printGrid();
+	d1->breed(myGrid_p);
+	puts("The grid after the Doodlebug attempts to breed");
+	myGrid_p->printGrid();
 
 	if(myGrid_p->getCellOccupant(1, 2) == nullptr && myGrid_p->getCellOccupant(1, 0)     == nullptr
 			&& myGrid_p->getCellOccupant(2, 1) == nullptr && myGrid_p->getCellOccupant(0, 1) == nullptr ){
 		result = false;
 	}
+
+	delete d1;
+	delete myGrid_p;
 	return result;
 }
 
@@ -359,21 +437,36 @@ bool Tests2::doodleDontBreedTest()
 	puts("Running the doodle don't breed test");
 	bool result = true;
 	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
-	Doodlebug* a1 = new Doodlebug(1,1,myGrid_p);
-	Doodlebug* a2 = new Doodlebug(1,0,myGrid_p);
-	Doodlebug* a3 = new Doodlebug(1,1,myGrid_p);
-	Doodlebug* a4 = new Doodlebug(1,2,myGrid_p);
-	Doodlebug* a5 = new Doodlebug(2,1,myGrid_p);
-	Doodlebug* a6 = new Doodlebug(0,2,myGrid_p);
-	Doodlebug* a7 = new Doodlebug(0,1,myGrid_p);
-	Doodlebug* a8 = new Doodlebug(2,2,myGrid_p);
-	Doodlebug* a9 = new Doodlebug(2,0,myGrid_p);
-	a1->breed(myGrid_p);
+	Doodlebug* d1 = new Doodlebug(1,1,myGrid_p);
+	Doodlebug* d2 = new Doodlebug(1,0,myGrid_p);
+	Doodlebug* d3 = new Doodlebug(1,1,myGrid_p);
+	Doodlebug* d4 = new Doodlebug(1,2,myGrid_p);
+	Doodlebug* d5 = new Doodlebug(2,1,myGrid_p);
+	Doodlebug* d6 = new Doodlebug(0,2,myGrid_p);
+	Doodlebug* d7 = new Doodlebug(0,1,myGrid_p);
+	Doodlebug* d8 = new Doodlebug(2,2,myGrid_p);
+	Doodlebug* d9 = new Doodlebug(2,0,myGrid_p);
+	puts("The grid before the Doodlebug attempts to breed");
+	myGrid_p->printGrid();
+	d1->breed(myGrid_p);
+	puts("The grid after the Doodlebug attempts to breed (the exact same)");
+	myGrid_p->printGrid();
 
-	if(myGrid_p->getCellOccupant(1, 2) == a4 && myGrid_p->getCellOccupant(1, 0)     == a2
-			&& myGrid_p->getCellOccupant(2, 1) == a5 && myGrid_p->getCellOccupant(0, 1) == a7 ){
+	if(myGrid_p->getCellOccupant(1, 2) == d4 && myGrid_p->getCellOccupant(1, 0) == d2
+			&& myGrid_p->getCellOccupant(2, 1) == d5 && myGrid_p->getCellOccupant(0, 1) == d7 ){
 		result = true;
 	}
+
+	delete d1;
+	delete d2;
+	delete d3;
+	delete d4;
+	delete d5;
+	delete d6;
+	delete d7;
+	delete d8;
+	delete d9;
+	delete myGrid_p;
 	return result;
 }
 
@@ -384,15 +477,24 @@ bool Tests2::doodleDontBreedTest()
 bool Tests2::doodleEatTest()
 {
 	bool result = false;
-	std::cout << "Running the eat ant test" << std::endl;
-	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
+	std::cout << "Running the doodle eats ant test" << std::endl;
+	Grid* myGrid_p = new Grid(2, 0, 0, 0, 0, 0);
 	Doodlebug* d1 = new Doodlebug(1,1,myGrid_p);
-	Ant* a1 = new Ant(1,0,myGrid_p);
-	delete(myGrid_p->getCellOccupant(1,1));
+	Ant* a1 = new Ant(0,1,myGrid_p);
+	Ant* a2 = new Ant(1,0,myGrid_p);
+	puts("The grid before the Ant gets eaten");
+	myGrid_p->printGrid();
+	a1->move(myGrid_p); // moves to (0,0)
+	a2->move(myGrid_p); // doesn't move (is stuck next to doodlebug)
 	d1->eat(myGrid_p,1,0);
-	if(myGrid_p->getCellOccupant(1, 1) == nullptr && myGrid_p->getCellOccupant(1, 0) ==d1){
+	delete d1; // delete the doodlebug from its position to simulate how move calls eat, which then delete
+	puts("The grid after the Ant gets eaten (and one of the ants moves)");
+	myGrid_p->printGrid();
+	if(myGrid_p->getCellOccupant(1, 1) == nullptr && myGrid_p->getCellOccupant(1, 0) == d1){
 		result = true;
 	}
+
+	delete myGrid_p;
 	return result;
 }
 
@@ -406,18 +508,23 @@ bool Tests2::doodleDietest()
 	std::cout << "Running the doodlebug dies test" << std::endl;
 	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
 	Doodlebug* d1 = new Doodlebug(1,1,myGrid_p);
+	puts("The grid before the Doodlebug dies");
+	myGrid_p->printGrid();
 	d1->~Doodlebug();
+	puts("The grid after the Doodlebug dies");
+	myGrid_p->printGrid();
 	if(myGrid_p->getCellOccupant(1, 1) == nullptr){
 		result = true;
 	}
+
+	delete myGrid_p;
 	return result;
 }
 
 
 /**
- * Destroys the memory held by a test
+ * Destroys the memory held by a test (none)
  */
 Tests2::~Tests2() {
-	// TODO Auto-generated destructor stub
 }
 

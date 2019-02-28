@@ -120,7 +120,8 @@ void Grid::printGrid() {
 /**
  * Fills orgArray with random Organisms based on the number of each count
  */
-void Grid::randomizeGrid() {
+void Grid::randomizeGrid(int RNG) {
+	srand(RNG);
     int doodleCount = numDoodlebugs;
     int antCount = numAnts;
     int randRow;
@@ -129,11 +130,11 @@ void Grid::randomizeGrid() {
     while(doodleCount > 0 || antCount > 0) {
     	randRow = (int)(rand() % n);
     	randCol = (int)(rand() % n);
-    	if(doodleCount && getCellOccupant(randRow, randCol) == nullptr){
+    	if(doodleCount && getCellOccupant(randRow, randCol) == nullptr){ // if there are remaining doodlebugs to place, as well as remaining empty spots
     	    setCellOccupant(randRow, randCol, new Doodlebug(randRow, randCol, this));
     	    doodleCount--;
     	}
-    	if(antCount && getCellOccupant(randRow, randCol) == nullptr) {
+    	if(antCount && getCellOccupant(randRow, randCol) == nullptr) { // if there are remaining ants to place, and a space is empty
     	    setCellOccupant(randRow, randCol, new Ant(randRow, randCol, this));
     	    antCount--;
     	}

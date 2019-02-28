@@ -15,49 +15,69 @@ Production::Production(int argc, const char* argv[]) {
 	long gs_l = strtol(argv[1],&ptr,10); // get the size of the array
 	n = (int)gs_l;
 
-	long nd_l = strtol(argv[2],&ptr,10); // get the desired sort method
+	long nd_l = strtol(argv[2],&ptr,10); // get the desired number of doodlebugs
 	numDoodlebugs = (int)nd_l;
 
-	long na_l = strtol(argv[3],&ptr,10); // get the desired sort method
+	long na_l = strtol(argv[3],&ptr,10); // get the desired number of ants
 	numAnts = (int)na_l;
 
-	long nts_l = strtol(argv[4],&ptr,10); // get the desired sort method
+	long nts_l = strtol(argv[4],&ptr,10); // get the desired number of time steps
 	numTimeSteps = (int)nts_l;
 
-	long seed_l = strtol(argv[5],&ptr,10); // get the desired sort method
+	long seed_l = strtol(argv[5],&ptr,10); // get the desired seed
 	seed = (int)seed_l;
 
-	long p_l = strtol(argv[6],&ptr,10); // get the desired sort method
+	long p_l = strtol(argv[6],&ptr,10); // get the desired value for pause
 	pause = (int)p_l;
 }
 
+/**
+ * Runs production with default values
+ * (which are initialized in .h file)
+ */
+bool Production::runProduction() {
+	return runProduction(n, numDoodlebugs, numAnts, numTimeSteps, seed, pause);
+}
+
+/**
+ * Runs the production based on user input
+ * @param nSquaresOnASide The dimensions of the game (n x n grid size) (default 20)
+ * @param numDoodles The
+ */
 bool Production::runProduction(int nSquaresOnASide, int numDoodles, int numAnts, int numTimeSteps, int seed, int pause) {
 	bool result = true;
 	Grid* grid = new Grid(nSquaresOnASide, numDoodles, numAnts, numTimeSteps, seed, pause);
 	int r = 0;
 	int c = 0;
 	int numSteps = 0;
-	grid->randomizeGrid();
+	if(seed == 0) {
+		grid->randomizeGrid(time(0)); // set the seed to the current time
+	}
+	else
+		if(seed > 0) {
+			grid->randomizeGrid(seed); // otherwise, set the seed to that specified by the user
+		}
 
 	while(numTimeSteps-- > 0)
 	{
 		std::cout << "Number of ants: " << grid->numAnts << std::endl;
-		std::cout << "Number of doodlebugs: " << grid->numAnts << std::endl;
+		std::cout << "Number of doodlebugs: " << grid->numDoodlebugs << std::endl;
 
 		c++;
 		if(c >= n) {
 			r++;
 			c = 0;
 			if(r >= n) {
-				if(pause > 0) {
-					grid->printGrid();
-					std::cout << "Press any button to continue." << std::endl;
-					std::cin.get();
-				}
+
 				r = 0;
 			}
 		}
 		grid->step(r, c);
+		if(pause > 0) {
+			grid->printGrid();
+			std::cout << "Press enter to continue." << std::endl;
+			std::cin.get();
+		}
 		numSteps++;
 	}
 

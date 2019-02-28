@@ -33,6 +33,5 @@ int main(int argc, const char* argv[])
 	}
     ts.~Tests2(); //done with tests
 
-    puts("got here ok");
 	return 0;
 }

@@ -45,10 +45,10 @@ Ant::Ant(int r, int c, Grid* grid)
 bool Ant::move(Grid* grid) {
 	bool hasMoved = false; // whether the ant has moved
 	int numEmptyAdjacents = 0; // the number of empty adjacent cells
-	bool canMoveNorth = this->canMoveHere(0, grid, r, c); // space to the north occupied?
-	bool canMoveEast = this->canMoveHere(1, grid, r, c); // space to the east occupied?
-	bool canMoveSouth = this->canMoveHere(2, grid, r, c); // space to the south occupied?
-	bool canMoveWest = this->canMoveHere(3, grid, r, c); // space to the west occupied?
+	bool canMoveNorth = canMoveHere(0, grid, r, c); // space to the north occupied?
+	bool canMoveEast = canMoveHere(1, grid, r, c); // space to the east occupied?
+	bool canMoveSouth = canMoveHere(2, grid, r, c); // space to the south occupied?
+	bool canMoveWest = canMoveHere(3, grid, r, c); // space to the west occupied?
 
 	if(canMoveNorth) { numEmptyAdjacents++; } // determining the number of empty adjacent cells
 	if(canMoveEast) { numEmptyAdjacents++; }
@@ -110,10 +110,10 @@ bool Ant::move(Grid* grid) {
 bool Ant::breed(Grid* grid) {
 	bool hasBred = false;
 	int numEmptyAdjacents = 0; // the number of empty adjacent cells
-	bool canBreedNorth = this->canMoveHere(0, grid, r, c); // space to the north occupied?
-	bool canBreedEast = this->canMoveHere(1, grid, r, c); // space to the east occupied?
-	bool canBreedSouth = this->canMoveHere(2, grid, r, c); // space to the south occupied?
-	bool canBreedWest = this->canMoveHere(3, grid, r, c); // space to the west occupied?
+	bool canBreedNorth = canMoveHere(0, grid, r, c); // space to the north occupied?
+	bool canBreedEast = canMoveHere(1, grid, r, c); // space to the east occupied?
+	bool canBreedSouth = canMoveHere(2, grid, r, c); // space to the south occupied?
+	bool canBreedWest = canMoveHere(3, grid, r, c); // space to the west occupied?
 
 	if(canBreedNorth) { numEmptyAdjacents++; }
 	if(canBreedEast) { numEmptyAdjacents++; }
@@ -131,19 +131,19 @@ bool Ant::breed(Grid* grid) {
 			}
 			if(canBreedEast) {
 				if(randomInt == 1) {
-					grid->setCellOccupant(r-1, c, new Ant(r, c+1, grid)); // create a new Ant to the east
+					grid->setCellOccupant(r, c+1, new Ant(r, c+1, grid)); // create a new Ant to the east
 					hasBred = true;
 				}
 			}
 			if(canBreedSouth) {
 				if(randomInt == 2) {
-					grid->setCellOccupant(r-1, c, new Ant(r+1, c, grid)); // create a new Ant to the south
+					grid->setCellOccupant(r+1, c, new Ant(r+1, c, grid)); // create a new Ant to the south
 					hasBred = true;
 				}
 			}
 			if(canBreedWest) {
 				if(randomInt == 3) {
-					grid->setCellOccupant(r-1, c, new Ant(r, c-1, grid)); // create a new Ant to the west
+					grid->setCellOccupant(r, c-1, new Ant(r, c-1, grid)); // create a new Ant to the west
 					hasBred = true;
 				}
 			}
@@ -172,7 +172,6 @@ void Ant::step(Grid* grid) {
  * Clears memory formerly held by an Ant
  */
 Ant::~Ant() {
-	grid->numAnts--;
 	grid->setCellOccupant(r, c, (Organism*)nullptr);
 }
 

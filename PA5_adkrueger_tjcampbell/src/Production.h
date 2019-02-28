@@ -18,6 +18,7 @@ private:
 	int pause = 0;
 public:
 	Production(int argc, const char* argv[]);
+	bool runProduction();
 	bool runProduction(int nSquaresOnASide, int numDoodles, int numAnts, int numTimeSteps, int seed, int pause);
 	int getN();
 	int getNumDoodlebugs();

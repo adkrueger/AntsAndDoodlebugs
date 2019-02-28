@@ -28,7 +28,7 @@ public:
 	void step(int r, int c);
 	char getLetter(int r, int c);
 	void printGrid();
-	void randomizeGrid();
+	void randomizeGrid(int RNG);
 	virtual ~Grid();
 };
 

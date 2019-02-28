@@ -52,10 +52,10 @@ bool Doodlebug::move(Grid* grid) {
 	bool hasMoved = false;
 	bool hasEaten = false;
 	int numAvailableAdjacents = 0; // the number of empty adjacent cells
-	bool canMoveNorth = this->doodleCanMoveHere(0, grid, r, c); // space to the north occupied?
-	bool canMoveEast = this->doodleCanMoveHere(1, grid, r, c); // space to the east occupied?
-	bool canMoveSouth = this->doodleCanMoveHere(2, grid, r, c); // space to the south occupied?
-	bool canMoveWest = this->doodleCanMoveHere(3, grid, r, c); // space to the west occupied?
+	bool canMoveNorth = doodleCanMoveHere(0, grid, r, c); // space to the north occupied?
+	bool canMoveEast = doodleCanMoveHere(1, grid, r, c); // space to the east occupied?
+	bool canMoveSouth = doodleCanMoveHere(2, grid, r, c); // space to the south occupied?
+	bool canMoveWest = doodleCanMoveHere(3, grid, r, c); // space to the west occupied?
 
 	if(canMoveNorth) { numAvailableAdjacents++; } // determine the correct number of available adjacent spaces
 	if(canMoveEast) { numAvailableAdjacents++; }
@@ -66,62 +66,62 @@ bool Doodlebug::move(Grid* grid) {
 	if(numAvailableAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
 		while(!hasMoved) {
 			int randomInt = (int)(rand() % 4); // generates a random int from 0 to 3
-			if(canMoveNorth && !hasMoved) { // if we can move north and haven't moved yet
+			if(canMoveNorth && canMoveHere(0, grid, r, c) && !hasMoved) { // if we can move north and there isn't an organism occupying that spot
 				if(randomInt == 0) {
-					grid->setCellOccupant(r-1, c, this); // move the Ant north by creating an Ant in its place
-					grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
+					grid->setCellOccupant(r-1, c, this); // move the doodlebug north by creating an doodlebug in its place
+					grid->setCellOccupant(r, c, nullptr); // remove the doodlebug from its current spot
 					r--;
 					hasMoved = true;
 				}
 			}
-			else if (r-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
-				this->eat(grid, r-1, c);
-				grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
+			else if (canMoveNorth && r-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
+				eat(grid, r-1, c);
+				grid->setCellOccupant(r, c, nullptr); // remove the doodlebug from its current spot
 				r--;
 				hasMoved = true;
 				hasEaten = true;
 			}
-			if(canMoveEast && !hasMoved) { // if we can move east and haven't moved yet
+			if(canMoveEast && canMoveHere(1, grid, r, c) && !hasMoved) { // if we can move east and there isn't an organism occupying that spot
 				if(randomInt == 1) {
-					grid->setCellOccupant(r, c+1, this); // move the Ant east by creating an Ant in its place
-					grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
+					grid->setCellOccupant(r, c+1, this); // move the doodlebug east by creating an doodlebug in its place
+					grid->setCellOccupant(r, c, nullptr); // remove the doodlebug from its current spot
 					c++;
 					hasMoved = true;
 				}
 			}
-			else if (c+1 < grid->n && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
-				this->eat(grid, r, c+1);
-				grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
+			else if (canMoveEast && c+1 < grid->n && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
+				eat(grid, r, c+1);
+				grid->setCellOccupant(r, c, nullptr); // remove the doodlebug from its current spot
 		        c++;
 				hasMoved = true;
 				hasEaten = true;
 			}
-			if(canMoveSouth && !hasMoved) { // if we can move south and haven't moved yet
+			if(canMoveSouth && canMoveHere(2, grid, r, c) && !hasMoved) { // if we can move south and there isn't an organism occupying that spot
 				if(randomInt == 2) {
-					grid->setCellOccupant(r+1, c, this); // move the Ant south by creating an Ant in its place
-					grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
+					grid->setCellOccupant(r+1, c, this); // move the doodlebug south by creating an doodlebug in its place
+					grid->setCellOccupant(r, c, nullptr); // remove the doodlebug from its current spot
 					r++;
 					hasMoved = true;
 				}
 			}
-			else if (r+1 < grid->n && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
-				this->eat(grid, r+1, c);
-				grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
+			else if (canMoveSouth && r+1 < grid->n && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
+			    eat(grid, r+1, c);
+				grid->setCellOccupant(r, c, nullptr); // remove the doodlebug from its current spot
 				r++;
 				hasMoved = true;
 				hasEaten = true;
 			}
-			if(canMoveWest && !hasMoved) { // if we can move west and haven't moved yet
+			if(canMoveWest && canMoveHere(3, grid, r, c) && !hasMoved) { // if we can move west and there isn't an organism occupying that spot
 				if(randomInt == 3) {
-					grid->setCellOccupant(r, c-1, this); // move the Ant west by creating an Ant in its place
-					grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
+					grid->setCellOccupant(r, c-1, this); // move the doodlebug west by creating an doodlebug in its place
+					grid->setCellOccupant(r, c, nullptr); // remove the doodlebug from its current spot
 					c--;
 					hasMoved = true;
 				}
 			}
-			else if (c-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
-				this->eat(grid, r, c-1);
-				grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
+			else if (canMoveWest && c-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
+				eat(grid, r, c-1);
+				grid->setCellOccupant(r, c, nullptr); // remove the doodlebug from its current spot
 				c--;
 				hasMoved = true;
 				hasEaten = true;
@@ -169,30 +169,31 @@ bool Doodlebug::breed(Grid* grid) {
 			int randomInt = (int)(rand() % 4); // generates a random int from 0 to numEmptyAdjacents
 			if(canBreedNorth) {
 				if(randomInt == 0) {
-					grid->setCellOccupant(r, c, new Doodlebug(r-1, c, grid)); // create a new Doodlebug to the north
+					grid->setCellOccupant(r-1, c, new Doodlebug(r-1, c, grid)); // create a new Doodlebug to the north
 					hasBred = true;
 				}
 			}
 			if(canBreedEast) {
 				if(randomInt == 1) {
-					grid->setCellOccupant(r, c, new Doodlebug(r, c+1, grid)); // create a new Doodlebug to the east
+					grid->setCellOccupant(r, c+1, new Doodlebug(r, c+1, grid)); // create a new Doodlebug to the east
 					hasBred = true;
 				}
 			}
 			if(canBreedSouth) {
 				if(randomInt == 2) {
-					grid->setCellOccupant(r, c, new Doodlebug(r+1, c, grid)); // create a new Doodlebug to the south
+					grid->setCellOccupant(r+1, c, new Doodlebug(r+1, c, grid)); // create a new Doodlebug to the south
 					hasBred = true;
 				}
 			}
 			if(canBreedWest) {
 				if(randomInt == 3) {
-					grid->setCellOccupant(r, c, new Doodlebug(r, c-1, grid)); // create a new Doodlebug to the west
+					grid->setCellOccupant(r, c-1, new Doodlebug(r, c-1, grid)); // create a new Doodlebug to the west
 					hasBred = true;
 				}
 			}
 		}
 	}
+
 
 	if(hasBred == true) { // if the doodlebug bred
 		movesWithoutBreeding = -8; // reset the breeding counter
@@ -211,7 +212,8 @@ bool Doodlebug::breed(Grid* grid) {
 bool Doodlebug::eat(Grid* grid, int r, int c) {
 	bool status = true;
 
-	delete(grid->getCellOccupant(r, c)); // delete the ant in the space
+	grid->numAnts--;
+	delete grid->getCellOccupant(r, c); // delete the ant in the space
 	grid->setCellOccupant(r, c, this); // then move the doodlebug there
 	stepsTilStarve = 3;
 
@@ -224,6 +226,7 @@ bool Doodlebug::eat(Grid* grid, int r, int c) {
 void Doodlebug::step(Grid* grid) {
 	this->move(grid);
 	if(this->starve()) {
+		grid->numDoodlebugs--;
 		delete this;
 	}
 	else if(movesWithoutBreeding >= 0){
@@ -236,7 +239,7 @@ void Doodlebug::step(Grid* grid) {
  * @return true if the Doodlebug starved, false otherwise
  */
 bool Doodlebug::starve() {
-	return(this->stepsTilStarve <= 0);
+	return(stepsTilStarve <= 0);
 }
 
 /**
@@ -244,7 +247,6 @@ bool Doodlebug::starve() {
  * Removes the Doodlebug from the board and from its space held in memory
  */
 Doodlebug::~Doodlebug() {
-	grid->numDoodlebugs--;
 	grid->setCellOccupant(r, c, (Organism*)nullptr);
 }
 
