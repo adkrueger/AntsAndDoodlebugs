@@ -34,6 +34,7 @@ Doodlebug::Doodlebug(int r, int c, Grid* grid) {
 	movesWithoutBreeding = -8;
 	this->grid = grid;
 	this->grid->setCellOccupant(r, c, this);
+	this->grid->getCellOccupant(r, c)->setAmAnt(false);
 }
 
 /**
@@ -63,7 +64,7 @@ bool Doodlebug::move(Grid* grid) {
 
 
 	if(numAvailableAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
-		if(!hasMoved) {
+		while(!hasMoved) {
 			int randomInt = (int)(rand() % 4); // generates a random int from 0 to 3
 			if(canMoveNorth && !hasMoved) { // if we can move north and haven't moved yet
 				if(randomInt == 0) {
@@ -163,8 +164,8 @@ bool Doodlebug::breed(Grid* grid) {
 	if(canBreedSouth) { numEmptyAdjacents++; }
 	if(canBreedWest) { numEmptyAdjacents++; }
 
-	if(movesWithoutBreeding >= 0 && numEmptyAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
-		if(!hasBred) {
+	if(numEmptyAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
+		while(!hasBred) {
 			int randomInt = (int)(rand() % 4); // generates a random int from 0 to numEmptyAdjacents
 			if(canBreedNorth) {
 				if(randomInt == 0) {
@@ -212,6 +213,7 @@ bool Doodlebug::eat(Grid* grid, int r, int c) {
 
 	delete(grid->getCellOccupant(r, c)); // delete the ant in the space
 	grid->setCellOccupant(r, c, this); // then move the doodlebug there
+	stepsTilStarve = 3;
 
 	return status;
 }

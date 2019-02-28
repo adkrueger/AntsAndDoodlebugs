@@ -8,6 +8,7 @@
 #include "Tests2.h"
 #include "Grid.h"
 #include "Ant.h"
+#include "Doodlebug.h"
 #include <iostream>
 
 
@@ -73,11 +74,6 @@ bool Tests2::doTests()
 	if (ok10){
 		std::cout << "doodleDieTest() Passed" << std::endl << std::endl;
 	}
-	//see whether we can delete occupants
-	bool ok11 = deleteOccupantTest();
-	if (ok11){
-		std::cout << "deleteOccupantTest() Passed" << std::endl << std::endl;
-	}
 	// see whether the ants don't move when surrounded
 	bool ok12 = antsDontMoveTest();
 	if (ok12){
@@ -98,13 +94,8 @@ bool Tests2::doTests()
 	if (ok15){
 		std::cout << "doodleDontBreedTest() Passed" << std::endl << std::endl;
 	}
-	// see whether the doodlebugs eat ants randomly
-	bool ok16 = doodleRandomlyEatTest();
-	if (ok16){
-		std::cout << "doodleRandomlyEatTest() Passed" << std::endl << std::endl;
-	}
 
-	results = ok1 && ok2 && ok3 && ok4 && ok5 && ok6 && ok7 && ok8 && ok9 && ok10 && ok11 && ok12 && ok13 && ok14 && ok15 && ok16;
+	results = ok1 && ok2 && ok3 && ok4 && ok5 && ok6 && ok7 && ok8 && ok9 && ok10 && ok12 && ok13 && ok14 && ok15;
 	return results;
 }
 
@@ -284,15 +275,21 @@ bool Tests2::antsDieTest()
 }
 
 
-
 /**
  * Tests whether or not the Doodlebug is created properly
  * @return true if pass, false if fail
  */
 bool Tests2::makeDoodlesTest()
 {
-	bool result = true;
+	bool result = false;
 	std::cout << "Running the make doodlebugs test" << std::endl;
+	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
+	Doodlebug* d1 = new Doodlebug(0,0,myGrid_p);
+	if(myGrid_p->getCellOccupant(0, 0) == d1){
+		result = true;
+	}
+
+
 	return result;
 }
 
@@ -304,9 +301,14 @@ bool Tests2::doodleMoveTest()
 {
 	bool result = true;
 	std::cout << "Running the move doodlebugs test" << std::endl;
+	Grid* myGrid = new Grid(2, 0, 0, 0, 0, 0);
+	Doodlebug* d1 = new Doodlebug(1,1,myGrid);
+	d1->move(myGrid);
+	if (myGrid->getCellOccupant(1,1) != nullptr) { // if the ant is in the same location, it didn't move
+		result = false;
+	}
 	return result;
 }
-
 /**
  * Tests whether or not the Doodlebug stays still when surrounded
  * @return true if pass, false if fail
@@ -314,6 +316,17 @@ bool Tests2::doodleMoveTest()
 bool Tests2::doodleDontMoveTest()
 {
 	bool result = true;
+	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
+	Doodlebug* a1 = new Doodlebug(0,1,myGrid_p);
+	Doodlebug* a2 = new Doodlebug(1,0,myGrid_p);
+	Doodlebug* a3 = new Doodlebug(1,1,myGrid_p);
+	Doodlebug* a4 = new Doodlebug(1,2,myGrid_p);
+	Doodlebug* a5 = new Doodlebug(2,1,myGrid_p);
+
+	a3->move(myGrid_p);
+	if(myGrid_p->getCellOccupant(1, 1) != a3){
+		result = false;
+	}
 
 	return result;
 }
@@ -326,6 +339,14 @@ bool Tests2::doodleBreedTest()
 {
 	bool result = true;
 	std::cout << "Running the breed doodlebugs test" << std::endl;
+	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
+	Doodlebug* a1 = new Doodlebug(1,1,myGrid_p);
+	a1->breed(myGrid_p);
+
+	if(myGrid_p->getCellOccupant(1, 2) == nullptr && myGrid_p->getCellOccupant(1, 0)     == nullptr
+			&& myGrid_p->getCellOccupant(2, 1) == nullptr && myGrid_p->getCellOccupant(0, 1) == nullptr ){
+		result = false;
+	}
 	return result;
 }
 
@@ -335,8 +356,24 @@ bool Tests2::doodleBreedTest()
  */
 bool Tests2::doodleDontBreedTest()
 {
+	puts("Running the doodle don't breed test");
 	bool result = true;
+	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
+	Doodlebug* a1 = new Doodlebug(1,1,myGrid_p);
+	Doodlebug* a2 = new Doodlebug(1,0,myGrid_p);
+	Doodlebug* a3 = new Doodlebug(1,1,myGrid_p);
+	Doodlebug* a4 = new Doodlebug(1,2,myGrid_p);
+	Doodlebug* a5 = new Doodlebug(2,1,myGrid_p);
+	Doodlebug* a6 = new Doodlebug(0,2,myGrid_p);
+	Doodlebug* a7 = new Doodlebug(0,1,myGrid_p);
+	Doodlebug* a8 = new Doodlebug(2,2,myGrid_p);
+	Doodlebug* a9 = new Doodlebug(2,0,myGrid_p);
+	a1->breed(myGrid_p);
 
+	if(myGrid_p->getCellOccupant(1, 2) == a4 && myGrid_p->getCellOccupant(1, 0)     == a2
+			&& myGrid_p->getCellOccupant(2, 1) == a5 && myGrid_p->getCellOccupant(0, 1) == a7 ){
+		result = true;
+	}
 	return result;
 }
 
@@ -346,19 +383,16 @@ bool Tests2::doodleDontBreedTest()
  */
 bool Tests2::doodleEatTest()
 {
-	bool result = true;
+	bool result = false;
 	std::cout << "Running the eat ant test" << std::endl;
-	return result;
-}
-
-/**
- * Tests whether or not the Doodlebug eats ants randomly
- * @return true if pass, false if fail
- */
-bool Tests2::doodleRandomlyEatTest()
-{
-	bool result = true;
-
+	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
+	Doodlebug* d1 = new Doodlebug(1,1,myGrid_p);
+	Ant* a1 = new Ant(1,0,myGrid_p);
+	delete(myGrid_p->getCellOccupant(1,1));
+	d1->eat(myGrid_p,1,0);
+	if(myGrid_p->getCellOccupant(1, 1) == nullptr && myGrid_p->getCellOccupant(1, 0) ==d1){
+		result = true;
+	}
 	return result;
 }
 
@@ -368,20 +402,17 @@ bool Tests2::doodleRandomlyEatTest()
  */
 bool Tests2::doodleDietest()
 {
-	bool result = true;
+	bool result = false;
 	std::cout << "Running the doodlebug dies test" << std::endl;
+	Grid* myGrid_p = new Grid(3, 0, 0, 0, 0, 0);
+	Doodlebug* d1 = new Doodlebug(1,1,myGrid_p);
+	d1->~Doodlebug();
+	if(myGrid_p->getCellOccupant(1, 1) == nullptr){
+		result = true;
+	}
 	return result;
 }
 
-/**
- * Tests whether or not we can delete the occupant of a cell
- * @return true if the occupant is deleted, false otherwise
- */
-bool Tests2::deleteOccupantTest() {
-	bool result = true;
-
-	return result;
-}
 
 /**
  * Destroys the memory held by a test

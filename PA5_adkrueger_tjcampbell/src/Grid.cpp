@@ -9,6 +9,8 @@
 #include <iomanip>
 #include "Grid.h"
 #include "Organism.h"
+#include "Doodlebug.h"
+#include "Ant.h"
 
 
 /**
@@ -76,7 +78,7 @@ Organism* Grid::getCellOccupant(int r, int c) {
  */
 void Grid::step(int r, int c) {
 	if (orgArray[r][c] != nullptr) { // if the space isn't empty
-		orgArray[r][c]->step(this); // then cause the Organism to take a step
+		getCellOccupant(r,c)->step(this); // then cause the Organism to take a step
 	}
 }
 
@@ -115,6 +117,28 @@ void Grid::printGrid() {
 	}
 }
 
+/**
+ * Fills orgArray with random Organisms based on the number of each count
+ */
+void Grid::randomizeGrid() {
+    int doodleCount = numDoodlebugs;
+    int antCount = numAnts;
+    int randRow;
+    int randCol;
+
+    while(doodleCount > 0 || antCount > 0) {
+    	randRow = (int)(rand() % n);
+    	randCol = (int)(rand() % n);
+    	if(doodleCount && getCellOccupant(randRow, randCol) == nullptr){
+    	    setCellOccupant(randRow, randCol, new Doodlebug(randRow, randCol, this));
+    	    doodleCount--;
+    	}
+    	if(antCount && getCellOccupant(randRow, randCol) == nullptr) {
+    	    setCellOccupant(randRow, randCol, new Ant(randRow, randCol, this));
+    	    antCount--;
+    	}
+    }
+}
 
 /**
  * Destroys the given Grid, going row by row and removing each Cell from memory

@@ -56,7 +56,7 @@ bool Ant::move(Grid* grid) {
 	if(canMoveWest) { numEmptyAdjacents++; }
 
 	if(numEmptyAdjacents) { // if there are available adjacent spaces
-		if(!hasMoved) {
+		while(!hasMoved) {
 			int randomInt = (int)(rand() % 4); // generates a random int from 0 to 3
 			if(canMoveNorth && !hasMoved) { // if we can move north and haven't moved yet
 				if(randomInt == 0) {
@@ -121,7 +121,7 @@ bool Ant::breed(Grid* grid) {
 	if(canBreedWest) { numEmptyAdjacents++; }
 
 	if(numEmptyAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
-		if(!hasBred) {
+		while(!hasBred) {
 			int randomInt = (int)(rand() % 4); // generates a random int from 0 to 3
 			if(canBreedNorth) {
 				if(randomInt == 0) {

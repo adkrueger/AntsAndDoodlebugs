@@ -35,7 +35,7 @@ Organism::Organism(bool b) {
  *         false if the Organism is not an Ant
  */
 bool Organism::isPrey() {
-	return amAnt;
+	return (this == nullptr || amAnt);
 }
 
 /**

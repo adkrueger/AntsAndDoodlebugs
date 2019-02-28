@@ -36,27 +36,37 @@ bool Production::runProduction(int nSquaresOnASide, int numDoodles, int numAnts,
 	Grid* grid = new Grid(nSquaresOnASide, numDoodles, numAnts, numTimeSteps, seed, pause);
 	int r = 0;
 	int c = 0;
+	int numSteps = 0;
+	grid->randomizeGrid();
 
 	while(numTimeSteps-- > 0)
 	{
-		grid->step(r, c);
+		std::cout << "Number of ants: " << grid->numAnts << std::endl;
+		std::cout << "Number of doodlebugs: " << grid->numAnts << std::endl;
 
-		//if(pause > 0) {
-			//grid->printGrid();
-		//	std::cout << "Press any button to continue." << std::endl
-       //     std::cin >>
-		//}
-
-		r++;
 		c++;
-		if(r > n) {
-			r = 0;
+		if(c >= n) {
+			r++;
 			c = 0;
+			if(r >= n) {
+				if(pause > 0) {
+					grid->printGrid();
+					std::cout << "Press any button to continue." << std::endl;
+					std::cin.get();
+				}
+				r = 0;
+			}
 		}
+		grid->step(r, c);
+		numSteps++;
 	}
 
+	std::cout << "Original command line: " << nSquaresOnASide << " " << numDoodles << " " << numAnts << " " << numTimeSteps << " " << seed << " " << pause << std::endl;
 	std::cout << "Number of ants at end: " << grid->numAnts << std::endl;
 	std::cout << "Number of doodlebugs at end: " << grid->numDoodlebugs << std::endl;
+	std::cout << "Number of steps taken: " << numSteps << std::endl;
+    std::cout << "The final grid:" << std::endl;
+    grid->printGrid();
 
 	return result;
 }
