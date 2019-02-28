@@ -13,14 +13,14 @@ class Tests;
 class Production;
 
 
-int main(int argc, char* argv[])
+int main(int argc, const char* argv[])
 {//gridSize #doodlebugs #ants #time_steps seed pause
 	std::cout << "!!!Hello the classmates, it's time for fun with C++!!!" << std::endl;
     Tests2 ts = Tests2();//see page 291
     if(ts.doTests())
 	{
 		Production ps = Production(argc, argv);
-		bool ok = ps.runProduction();
+		bool ok = ps.runProduction(ps.getN(), ps.getNumDoodlebugs(), ps.getNumAnts(), ps.getNumTimeSteps(), ps.getSeed(), ps.getPause());
 		if(ok)
 		{
 			puts("Production worked.");
@@ -33,6 +33,6 @@ int main(int argc, char* argv[])
 	}
     ts.~Tests2(); //done with tests
 
-
+    puts("got here ok");
 	return 0;
 }

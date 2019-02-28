@@ -32,6 +32,7 @@ Ant::Ant(int r, int c, Grid* grid)
 	this->c = c; // the given column
 	movesWithoutBreeding = -3; // will be incremented to determine when the Ant needs to breed
 	this->grid = grid; // the grid
+	this->grid->setCellOccupant(r, c, this);
 }
 
 /**
@@ -60,6 +61,7 @@ bool Ant::move(Grid* grid) {
 			if(canMoveNorth && !hasMoved) { // if we can move north and haven't moved yet
 				if(randomInt == 0) {
 					grid->setCellOccupant(r-1, c, this); // move the Ant north by creating an Ant in its place
+					grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
 					r--;
 					hasMoved = true;
 				}
@@ -67,6 +69,7 @@ bool Ant::move(Grid* grid) {
 			if(canMoveEast && !hasMoved) { // if we can move east and haven't moved yet
 				if(randomInt == 1) {
 					grid->setCellOccupant(r, c+1, this); // move the Ant east by creating an Ant in its place
+					grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
 					c++;
 					hasMoved = true;
 				}
@@ -74,6 +77,7 @@ bool Ant::move(Grid* grid) {
 			if(canMoveSouth && !hasMoved) { // if we can move south and haven't moved yet
 				if(randomInt == 2) {
 					grid->setCellOccupant(r+1, c, this); // move the Ant south by creating an Ant in its place
+					grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
 					r++;
 					hasMoved = true;
 				}
@@ -81,6 +85,7 @@ bool Ant::move(Grid* grid) {
 			if(canMoveWest && !hasMoved) { // if we can move west and haven't moved yet
 				if(randomInt == 3) {
 					grid->setCellOccupant(r, c-1, this); // move the Ant west by creating an Ant in its place
+					grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
 					c--;
 					hasMoved = true;
 				}
@@ -115,7 +120,7 @@ bool Ant::breed(Grid* grid) {
 	if(canBreedSouth) { numEmptyAdjacents++; }
 	if(canBreedWest) { numEmptyAdjacents++; }
 
-	if(movesWithoutBreeding >= 0 && numEmptyAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
+	if(numEmptyAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
 		if(!hasBred) {
 			int randomInt = (int)(rand() % 4); // generates a random int from 0 to 3
 			if(canBreedNorth) {
@@ -157,7 +162,9 @@ bool Ant::breed(Grid* grid) {
  */
 void Ant::step(Grid* grid) {
 	this->move(grid);
-	this->breed(grid);
+	if(movesWithoutBreeding >= 0) {
+		this->breed(grid);
+	}
 }
 
 /**
@@ -165,7 +172,7 @@ void Ant::step(Grid* grid) {
  * Clears memory formerly held by an Ant
  */
 Ant::~Ant() {
-    grid->numAnts--;
-    grid->setCellOccupant(r, c, (Organism*)nullptr);
+	grid->numAnts--;
+	grid->setCellOccupant(r, c, (Organism*)nullptr);
 }
 

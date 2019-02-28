@@ -15,10 +15,12 @@
  * Creates a Grid of a default number of Cells
  */
 Grid::Grid() {
-	numDoodlebugs = 0;
-	numAnts = 0;
-	Grid(20); //calls general constructor with default value
-	numTimeSteps = 0;
+	pause = 0;
+	seed = 1;
+	numDoodlebugs = 5;
+	numAnts = 100;
+	numTimeSteps = 1000;
+	n = 20;
 	orgArray = new Organism**[n]; // the array is an array of n arrays, each of which contains n pointers to organisms
 	for (int i = 0; i < n; i++) {
 		orgArray[i] = new Organism*[n]; // Each row is an array of pointers to Organisms
@@ -32,10 +34,12 @@ Grid::Grid() {
  * Creates a Grid with a given number of Cells on each side
  * @param nSquaresOnASide The amount of squares on each side of the board
  */
-Grid::Grid(int nSquaresOnASide) {
-	numDoodlebugs = 0;
-	numAnts = 0;
-	numTimeSteps = 0;
+Grid::Grid(int nSquaresOnASide, int numDoodlebugs, int numAnts, int numTimeSteps, int seed, int pause) {
+	this->seed = seed;
+	this->numDoodlebugs = numDoodlebugs;
+	this->numAnts = numAnts;
+	this->numTimeSteps = numTimeSteps;
+	this->pause = pause;
 	n = nSquaresOnASide; //initialize size of grid
 	orgArray = new Organism**[n]; // the array is an array of n arrays, each of which contains n pointers to organisms
 	for (int i = 0; i < n; i++) {
@@ -70,13 +74,9 @@ Organism* Grid::getCellOccupant(int r, int c) {
 /**
  * Takes one "step" through the game.
  */
-void Grid::step() {
-	for(int r = 0; r < n; r++) {
-		for(int c = 0; c < n; c++) {
-			if (orgArray[r][c] != nullptr) { // if the space isn't empty
-				orgArray[r][c]->step(this); // then cause the Organism to take a step
-			}
-		}
+void Grid::step(int r, int c) {
+	if (orgArray[r][c] != nullptr) { // if the space isn't empty
+		orgArray[r][c]->step(this); // then cause the Organism to take a step
 	}
 }
 

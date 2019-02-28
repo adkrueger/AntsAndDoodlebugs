@@ -33,6 +33,7 @@ Doodlebug::Doodlebug(int r, int c, Grid* grid) {
 	stepsTilStarve = 3;
 	movesWithoutBreeding = -8;
 	this->grid = grid;
+	this->grid->setCellOccupant(r, c, this);
 }
 
 /**
@@ -67,12 +68,14 @@ bool Doodlebug::move(Grid* grid) {
 			if(canMoveNorth && !hasMoved) { // if we can move north and haven't moved yet
 				if(randomInt == 0) {
 					grid->setCellOccupant(r-1, c, this); // move the Ant north by creating an Ant in its place
+					grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
 					r--;
 					hasMoved = true;
 				}
 			}
 			else if (r-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
 				this->eat(grid, r-1, c);
+				grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
 				r--;
 				hasMoved = true;
 				hasEaten = true;
@@ -80,12 +83,14 @@ bool Doodlebug::move(Grid* grid) {
 			if(canMoveEast && !hasMoved) { // if we can move east and haven't moved yet
 				if(randomInt == 1) {
 					grid->setCellOccupant(r, c+1, this); // move the Ant east by creating an Ant in its place
+					grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
 					c++;
 					hasMoved = true;
 				}
 			}
 			else if (c+1 < grid->n && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
 				this->eat(grid, r, c+1);
+				grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
 		        c++;
 				hasMoved = true;
 				hasEaten = true;
@@ -93,12 +98,14 @@ bool Doodlebug::move(Grid* grid) {
 			if(canMoveSouth && !hasMoved) { // if we can move south and haven't moved yet
 				if(randomInt == 2) {
 					grid->setCellOccupant(r+1, c, this); // move the Ant south by creating an Ant in its place
+					grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
 					r++;
 					hasMoved = true;
 				}
 			}
 			else if (r+1 < grid->n && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
 				this->eat(grid, r+1, c);
+				grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
 				r++;
 				hasMoved = true;
 				hasEaten = true;
@@ -106,12 +113,14 @@ bool Doodlebug::move(Grid* grid) {
 			if(canMoveWest && !hasMoved) { // if we can move west and haven't moved yet
 				if(randomInt == 3) {
 					grid->setCellOccupant(r, c-1, this); // move the Ant west by creating an Ant in its place
+					grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
 					c--;
 					hasMoved = true;
 				}
 			}
 			else if (c-1 >= 0 && grid->getCellOccupant(r-1, c)->isPrey() && !hasMoved) { // if the move is blocked by an Ant, eat it
 				this->eat(grid, r, c-1);
+				grid->setCellOccupant(r, c, nullptr); // remove the ant from its current spot
 				c--;
 				hasMoved = true;
 				hasEaten = true;
@@ -121,7 +130,6 @@ bool Doodlebug::move(Grid* grid) {
 
 	if(hasMoved == true) {
 		movesWithoutBreeding++;
-		grid->numDoodlebugs++;
 	}
 	if(hasEaten == true) { // if the doodlebug has eaten, reset its starvation counter
 		stepsTilStarve = 3;
@@ -216,7 +224,7 @@ void Doodlebug::step(Grid* grid) {
 	if(this->starve()) {
 		delete this;
 	}
-	else {
+	else if(movesWithoutBreeding >= 0){
 		this->breed(grid);
 	}
 }

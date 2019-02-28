@@ -74,10 +74,10 @@ bool Organism::canMoveHere(int direction, Grid* g, int r, int c) {
 	if(direction == 0 && r-1 >= 0 && g->getCellOccupant(r-1, c)->isEmpty(g, r-1, c)) {
 		available = true;
 	}
-	if(direction == 1 && c+1 > g->n && g->getCellOccupant(r, c+1)->isEmpty(g, r, c+1)) {
+	if(direction == 1 && c+1 < g->n && g->getCellOccupant(r, c+1)->isEmpty(g, r, c+1)) {
 		available = true;
 	}
-	if(direction == 2 && r+1 > g->n && g->getCellOccupant(r+1, c)->isEmpty(g, r+1, c)) {
+	if(direction == 2 && r+1 < g->n && g->getCellOccupant(r+1, c)->isEmpty(g, r+1, c)) {
 		available = true;
 	}
 	if(direction == 3 && c-1 >= 0&& g->getCellOccupant(r, c-1)->isEmpty(g, r, c-1)) {
@@ -108,10 +108,10 @@ bool Organism::doodleCanMoveHere(int direction, Grid* g, int r, int c) {
 	if(r-1 >= 0 && direction == 0 && g->getCellOccupant(r-1, c)->isPrey()) {
 		available = true;
 	}
-	if(c+1 > g->n && direction == 1 && g->getCellOccupant(r, c+1)->isPrey()) {
+	if(c+1 < g->n && direction == 1 && g->getCellOccupant(r, c+1)->isPrey()) {
 		available = true;
 	}
-	if(r+1 > g->n && direction == 2 && g->getCellOccupant(r+1, c)->isPrey()) {
+	if(r+1 < g->n && direction == 2 && g->getCellOccupant(r+1, c)->isPrey()) {
 		available = true;
 	}
 	if(c-1 >= 0 && direction == 3 && g->getCellOccupant(r, c-1)->isPrey()) {
