@@ -47,46 +47,46 @@ bool Production::runProduction() {
 bool Production::runProduction(int nSquaresOnASide, int numDoodles, int numAnts, int numTimeSteps, int seed, int pause) {
 	bool result = true;
 	Grid* grid = new Grid(nSquaresOnASide, numDoodles, numAnts, numTimeSteps, seed, pause);
-	int r = 0;
-	int c = 0;
-	int numSteps = 0;
-	if(seed == 0) {
+	int r = 0; // the row we will be stepping
+	int c = 0; // the column we will be stepping
+	int numSteps = 0; // the number of steps that have been moved through
+	if(seed == 0) { // if the seed asks for the current time
 		grid->randomizeGrid(time(0)); // set the seed to the current time
 	}
 	else
-		if(seed > 0) {
+		if(seed > 0) { // if the seed was input, then use it as the number for the generator
 			grid->randomizeGrid(seed); // otherwise, set the seed to that specified by the user
 		}
 
-	while(numTimeSteps-- > 0)
-	{
-		std::cout << "Number of ants: " << grid->numAnts << std::endl;
-		std::cout << "Number of doodlebugs: " << grid->numDoodlebugs << std::endl;
-
+	while(numTimeSteps-numSteps > 0 && (grid->numAnts > 0 || grid->numDoodlebugs > 0)) { // while there are timesteps remaining, as well as at least one ant or doodlebug
 		c++;
-		if(c >= n) {
+		if(c >= n) { // if c is out of bounds
 			r++;
 			c = 0;
-			if(r >= n) {
-
+			if(r >= n) { // if r is out of bounds
 				r = 0;
 			}
 		}
-		grid->step(r, c);
-		if(pause > 0) {
-			grid->printGrid();
-			std::cout << "Press enter to continue." << std::endl;
-			std::cin.get();
+		grid->step(r, c); // cause the currently selected position to step
+		std::cout << "Number of ants: " << grid->numAnts << std::endl;
+		std::cout << "Number of doodlebugs: " << grid->numDoodlebugs << std::endl;
+		if(pause > 0) { // if the user wants the program to pause
+			if(numSteps % pause == 0) { // if the given number of timesteps aligns with pause input, pause
+				grid->printGrid();
+				std::cout << "Press enter to continue." << std::endl;
+				std::cin.get();
+			}
 		}
 		numSteps++;
 	}
 
+	// print the required values, then the grid
 	std::cout << "Original command line: " << nSquaresOnASide << " " << numDoodles << " " << numAnts << " " << numTimeSteps << " " << seed << " " << pause << std::endl;
 	std::cout << "Number of ants at end: " << grid->numAnts << std::endl;
 	std::cout << "Number of doodlebugs at end: " << grid->numDoodlebugs << std::endl;
 	std::cout << "Number of steps taken: " << numSteps << std::endl;
-    std::cout << "The final grid:" << std::endl;
-    grid->printGrid();
+	std::cout << "The final grid:" << std::endl;
+	grid->printGrid();
 
 	return result;
 }
