@@ -18,6 +18,13 @@ The seed value is the value of the random number generator. Input a 0 if you
 would like to use the current time as a seed
 The pause value will cause the grid to print and pause every (n % pause) steps
 
+
+**EXAMPLE RUN ARGUMENTS**
+5 2 1 1000 1 0                     // Will end after 40 steps with no organisms left
+5 2 7 1000 0 1                     // To see the output of the grid after each step
+                                   // with a random seed
+
+
 #Doodlebug#
 Doodlebug has four main methods: move, breed, starve, and step. It also has 
 member variables that represent its grid, current row, current column, and 
