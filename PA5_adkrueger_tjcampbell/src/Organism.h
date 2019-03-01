@@ -2,7 +2,7 @@
  * Organism.h
  *
  *  Created on: Feb 7, 2019
- *      Author: student
+ *      Author: Aaron Krueger & Theo Campbell
  */
 
 #ifndef ORGANISM_H_

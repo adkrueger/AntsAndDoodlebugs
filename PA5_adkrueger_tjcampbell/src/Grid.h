@@ -2,7 +2,7 @@
  * Grid.h
  *
  *  Created on: Feb 9, 2019
- *      Author: student
+ *      Author: Aaron Krueger & Theo Campbell
  */
 
 #ifndef GRID_H_

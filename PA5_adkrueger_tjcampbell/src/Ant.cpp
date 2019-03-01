@@ -2,7 +2,7 @@
  * Ant.cpp
  *
  *  Created on: Feb 10, 2019
- *      Author: student
+ *      Author: Aaron Krueger & Theo Campbell
  */
 
 #include <cstdlib>

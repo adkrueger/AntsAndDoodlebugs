@@ -2,7 +2,7 @@
  * Grid.cpp
  *
  *  Created on: Feb 9, 2019
- *      Author: Aaron Krueger
+ *      Author: Aaron Krueger & Theo Campbell
  */
 
 #include <iostream>

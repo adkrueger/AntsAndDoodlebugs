@@ -2,7 +2,7 @@
  * Organism.cpp
  *
  *  Created on: Feb 7, 2019
- *      Author: student
+ *      Author: Aaron Krueger & Theo Campbell
  */
 
 #include "Organism.h"
@@ -35,7 +35,7 @@ Organism::Organism(bool b) {
  *         false if the Organism is not an Ant
  */
 bool Organism::isPrey() {
-	return (this == nullptr || amAnt);
+	return (this == nullptr || amAnt); // error thrown here doesn't make sense - checked online and it appears to be buggy/too strict
 }
 
 /**

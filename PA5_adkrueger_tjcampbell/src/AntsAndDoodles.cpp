@@ -1,7 +1,7 @@
 //============================================================================
 // Name        : Ants.cpp
-// Author      : Therese building on Ciaraldi
-// Version     :
+// Author      : Aaron Krueger & Theo Campbell
+// Version     : 2/28/19
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
 //============================================================================

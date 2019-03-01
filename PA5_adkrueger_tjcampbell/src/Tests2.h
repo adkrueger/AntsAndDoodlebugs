@@ -2,7 +2,7 @@
  * Tests2.h
  *
  *  Created on: Feb 7, 2019
- *      Author: student
+ *      Author: Aaron Krueger & Theo Campbell
  */
 
 #ifndef TESTS2_H_

@@ -2,7 +2,7 @@
  * Production.cpp
  *
  *  Created on: Feb 7, 2019
- *      Author: student
+ *      Author: Aaron Krueger & Theo Campbell
  */
 
 #include "Production.h"
