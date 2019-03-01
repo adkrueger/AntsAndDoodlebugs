@@ -13,11 +13,10 @@
  * Default constructor for a Doodlebug object
  */
 Doodlebug::Doodlebug() {
-	// TODO Auto-generated constructor stub
-	r = 0;
-	c = 0;
-	stepsTilStarve = 3;
-	movesWithoutBreeding = -8;
+	r = 0; // default row value of the doodle
+	c = 0; // default col value of the doodle
+	stepsTilStarve = 3; // default number of steps til the doodle starves (decremented)
+	movesWithoutBreeding = -8; // default number of moves til the doodle breeds (incremented)
 	grid = nullptr;
 }
 
@@ -27,14 +26,13 @@ Doodlebug::Doodlebug() {
  * @param c The column of the doodlebug
  */
 Doodlebug::Doodlebug(int r, int c, Grid* grid) {
-	// TODO Auto-generated constructor stub
-	this->r = r;
-	this->c = c;
-	stepsTilStarve = 3;
-	movesWithoutBreeding = -8;
-	this->grid = grid;
-	this->grid->setCellOccupant(r, c, this);
-	this->grid->getCellOccupant(r, c)->setAmAnt(false);
+	this->r = r; // setting the row value
+	this->c = c; // setting the col value
+	stepsTilStarve = 3; // default number of steps til the doodle starves (decremented)
+	movesWithoutBreeding = -8; // default number of moves til the doodle breeds (incremented)
+	this->grid = grid; // setting the grid
+	this->grid->setCellOccupant(r, c, this); // adding the doodle to the grid
+	this->grid->getCellOccupant(r, c)->setAmAnt(false); // setting the amAnt value of the organism in the grid
 }
 
 /**
@@ -49,8 +47,8 @@ Doodlebug::Doodlebug(int r, int c, Grid* grid) {
  * @return Whether the Doodlebug moved successfully
  */
 bool Doodlebug::move(Grid* grid) {
-	bool hasMoved = false;
-	bool hasEaten = false;
+	bool hasMoved = false; // whether the doodle moved
+	bool hasEaten = false; // whether the doodle ate
 	int numAvailableAdjacents = 0; // the number of empty adjacent cells
 	bool canMoveNorth = doodleCanMoveHere(0, grid, r, c); // space to the north occupied?
 	bool canMoveEast = doodleCanMoveHere(1, grid, r, c); // space to the east occupied?
@@ -129,9 +127,8 @@ bool Doodlebug::move(Grid* grid) {
 		}
 	}
 
-	if(hasMoved == true) {
-		movesWithoutBreeding++;
-	}
+	movesWithoutBreeding++; // increment the number of steps the doodle hasn't bred in
+
 	if(hasEaten == true) { // if the doodlebug has eaten, reset its starvation counter
 		stepsTilStarve = 3;
 	}
@@ -167,25 +164,25 @@ bool Doodlebug::breed(Grid* grid) {
 	if(numEmptyAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
 		while(!hasBred) {
 			int randomInt = (int)(rand() % 4); // generates a random int from 0 to numEmptyAdjacents
-			if(canBreedNorth) {
+			if(canBreedNorth) { // if the doodle can breed to the north
 				if(randomInt == 0) {
 					grid->setCellOccupant(r-1, c, new Doodlebug(r-1, c, grid)); // create a new Doodlebug to the north
 					hasBred = true;
 				}
 			}
-			if(canBreedEast) {
+			if(canBreedEast) { // if the doodle can breed to the east
 				if(randomInt == 1) {
 					grid->setCellOccupant(r, c+1, new Doodlebug(r, c+1, grid)); // create a new Doodlebug to the east
 					hasBred = true;
 				}
 			}
-			if(canBreedSouth) {
+			if(canBreedSouth) { // if the doodle can breed to the south
 				if(randomInt == 2) {
 					grid->setCellOccupant(r+1, c, new Doodlebug(r+1, c, grid)); // create a new Doodlebug to the south
 					hasBred = true;
 				}
 			}
-			if(canBreedWest) {
+			if(canBreedWest) { // if the doodle can breed to the west
 				if(randomInt == 3) {
 					grid->setCellOccupant(r, c-1, new Doodlebug(r, c-1, grid)); // create a new Doodlebug to the west
 					hasBred = true;
@@ -224,12 +221,12 @@ bool Doodlebug::eat(Grid* grid, int r, int c) {
  * Causes the Doodlebug to take a step, i.e. move and/or breed
  */
 void Doodlebug::step(Grid* grid) {
-	this->move(grid);
-	if(this->starve()) {
+	this->move(grid); // have the doodle move
+	if(this->starve()) { // if the doodle starves, then remove it
 		grid->numDoodlebugs--;
 		delete this;
 	}
-	else if(movesWithoutBreeding >= 0){
+	else if(movesWithoutBreeding >= 0){ // otherwise have it attempt to breed
 		this->breed(grid);
 	}
 }

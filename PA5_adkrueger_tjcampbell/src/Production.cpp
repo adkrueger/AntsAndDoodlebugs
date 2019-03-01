@@ -10,6 +10,10 @@
 #include <cstdlib>
 #include <iostream>
 
+/** The production constructor of the program
+ * @param argc Number of words on the command line
+ * @param argv[] Array of character strings, the words from the command line.
+ */
 Production::Production(int argc, const char* argv[]) {
 	char* ptr; // a pointer we will use to store the input
 	long gs_l = strtol(argv[1],&ptr,10); // get the size of the array
@@ -46,7 +50,7 @@ bool Production::runProduction() {
  */
 bool Production::runProduction(int nSquaresOnASide, int numDoodles, int numAnts, int numTimeSteps, int seed, int pause) {
 	bool result = true;
-	Grid* grid = new Grid(nSquaresOnASide, numDoodles, numAnts, numTimeSteps, seed, pause);
+	Grid* grid = new Grid(nSquaresOnASide, numDoodles, numAnts);
 	int r = 0; // the row we will be stepping
 	int c = 0; // the column we will be stepping
 	int numSteps = 0; // the number of steps that have been moved through

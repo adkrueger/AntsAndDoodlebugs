@@ -12,17 +12,13 @@
 class Organism;
 
 class Grid {
-private:
-	int numTimeSteps;
-    int seed;
-    int pause;
 public:
     int numAnts;
     int numDoodlebugs;
 	Organism*** orgArray = (Organism***)nullptr;
 	int n=0; //this initial value will be changed when the program is invoked
 	Grid();
-	Grid(int nSquaresOnASide, int numDoodles, int numAnts, int numTimeSteps, int seed, int pause);
+	Grid(int nSquaresOnASide, int numDoodles, int numAnts);
 	void setCellOccupant(int r, int c, Organism* o);
 	Organism* getCellOccupant(int r, int c);
 	void step(int r, int c);

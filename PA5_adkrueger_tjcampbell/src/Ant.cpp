@@ -31,8 +31,8 @@ Ant::Ant(int r, int c, Grid* grid)
 	this->r = r; // the given row
 	this->c = c; // the given column
 	movesWithoutBreeding = -3; // will be incremented to determine when the Ant needs to breed
-	this->grid = grid; // the grid
-	this->grid->setCellOccupant(r, c, this);
+	this->grid = grid; // setting the grid
+	this->grid->setCellOccupant(r, c, this); // add the ant to the grid
 }
 
 /**
@@ -93,7 +93,7 @@ bool Ant::move(Grid* grid) {
 		}
 	}
 
-	movesWithoutBreeding++;
+	movesWithoutBreeding++; // increment the moves without breeding
 	return hasMoved;
 }
 
@@ -108,14 +108,14 @@ bool Ant::move(Grid* grid) {
  * @return whether or not the Ant was created successfully
  */
 bool Ant::breed(Grid* grid) {
-	bool hasBred = false;
+	bool hasBred = false; // if the doodlebug bred
 	int numEmptyAdjacents = 0; // the number of empty adjacent cells
 	bool canBreedNorth = canMoveHere(0, grid, r, c); // space to the north occupied?
 	bool canBreedEast = canMoveHere(1, grid, r, c); // space to the east occupied?
 	bool canBreedSouth = canMoveHere(2, grid, r, c); // space to the south occupied?
 	bool canBreedWest = canMoveHere(3, grid, r, c); // space to the west occupied?
 
-	if(canBreedNorth) { numEmptyAdjacents++; }
+	if(canBreedNorth) { numEmptyAdjacents++; } // increment the number of spaces appropriately
 	if(canBreedEast) { numEmptyAdjacents++; }
 	if(canBreedSouth) { numEmptyAdjacents++; }
 	if(canBreedWest) { numEmptyAdjacents++; }
@@ -123,25 +123,25 @@ bool Ant::breed(Grid* grid) {
 	if(numEmptyAdjacents) { // if the doodlebug has to breed and there are available adjacent spaces
 		while(!hasBred) {
 			int randomInt = (int)(rand() % 4); // generates a random int from 0 to 3
-			if(canBreedNorth) {
+			if(canBreedNorth) { // if the ant can breed to the north
 				if(randomInt == 0) {
 					grid->setCellOccupant(r-1, c, new Ant(r-1, c, grid)); // create a new Ant to the north
 					hasBred = true;
 				}
 			}
-			if(canBreedEast) {
+			if(canBreedEast) { // if the ant can breed to the east
 				if(randomInt == 1) {
 					grid->setCellOccupant(r, c+1, new Ant(r, c+1, grid)); // create a new Ant to the east
 					hasBred = true;
 				}
 			}
-			if(canBreedSouth) {
+			if(canBreedSouth) { // if the ant can breed to the south
 				if(randomInt == 2) {
 					grid->setCellOccupant(r+1, c, new Ant(r+1, c, grid)); // create a new Ant to the south
 					hasBred = true;
 				}
 			}
-			if(canBreedWest) {
+			if(canBreedWest) { // if the ant can breed to the west
 				if(randomInt == 3) {
 					grid->setCellOccupant(r, c-1, new Ant(r, c-1, grid)); // create a new Ant to the west
 					hasBred = true;
@@ -161,8 +161,8 @@ bool Ant::breed(Grid* grid) {
  * Causes the Ant to take a step, i.e. move and/or breed
  */
 void Ant::step(Grid* grid) {
-	this->move(grid);
-	if(movesWithoutBreeding >= 0) {
+	this->move(grid); // have the ant move
+	if(movesWithoutBreeding >= 0) { // if it needs to breed, have it do so
 		this->breed(grid);
 	}
 }

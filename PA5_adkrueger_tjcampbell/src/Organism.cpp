@@ -11,10 +11,10 @@
  * Default constructor for an Organism
  */
 Organism::Organism() {
-	movesWithoutBreeding = 0;
-	r = 0;
-	c = 0;
-	grid = nullptr;
+	movesWithoutBreeding = 0; // the default moves without breeding
+	r = 0; // the default row of the organism
+	c = 0; // the default row of the organism
+	grid = nullptr; // setting the grid to null
 }
 
 /**
@@ -22,10 +22,10 @@ Organism::Organism() {
  * @param b Whether or not the Organism is an Ant
  */
 Organism::Organism(bool b) {
-	amAnt = b;
-	movesWithoutBreeding = 0;
-	r = 0;
-	c = 0;
+	amAnt = b; // whether the organism is an ant
+	movesWithoutBreeding = 0; // how many moves are left until the organism breeds (fully initiated in derived classes)
+	r = 0; // the row position of the organism (fully initiated in derived classes)
+	c = 0; // the col position of the organism  (fully initiated in derived classes)
 	grid = nullptr;
 }
 
@@ -52,7 +52,7 @@ void Organism::setAmAnt(bool b) {
  * @return true if there is nothing in the given space, false otherwise
  */
 bool Organism::isEmpty(Grid* grid, int r, int c) {
-	return (grid->getCellOccupant(r, c) == nullptr);
+	return (grid->getCellOccupant(r, c) == nullptr); // true if the space is empty
 }
 
 /**
@@ -71,16 +71,16 @@ bool Organism::isEmpty(Grid* grid, int r, int c) {
 bool Organism::canMoveHere(int direction, Grid* g, int r, int c) {
 	bool available = false;
 
-	if(direction == 0 && r-1 >= 0 && g->getCellOccupant(r-1, c)->isEmpty(g, r-1, c)) {
+	if(direction == 0 && r-1 >= 0 && g->getCellOccupant(r-1, c)->isEmpty(g, r-1, c)) { // if the space to the north is empty
 		available = true;
 	}
-	if(direction == 1 && c+1 < g->n && g->getCellOccupant(r, c+1)->isEmpty(g, r, c+1)) {
+	if(direction == 1 && c+1 < g->n && g->getCellOccupant(r, c+1)->isEmpty(g, r, c+1)) { // if the space to the east is empty
 		available = true;
 	}
-	if(direction == 2 && r+1 < g->n && g->getCellOccupant(r+1, c)->isEmpty(g, r+1, c)) {
+	if(direction == 2 && r+1 < g->n && g->getCellOccupant(r+1, c)->isEmpty(g, r+1, c)) { // if the space to the south is empty
 		available = true;
 	}
-	if(direction == 3 && c-1 >= 0&& g->getCellOccupant(r, c-1)->isEmpty(g, r, c-1)) {
+	if(direction == 3 && c-1 >= 0&& g->getCellOccupant(r, c-1)->isEmpty(g, r, c-1)) { // if the space to the wast is empty
 		available = true;
 	}
 
@@ -105,16 +105,16 @@ bool Organism::canMoveHere(int direction, Grid* g, int r, int c) {
 bool Organism::doodleCanMoveHere(int direction, Grid* g, int r, int c) {
 	bool available = false;
 
-	if(r-1 >= 0 && direction == 0 && g->getCellOccupant(r-1, c)->isPrey()) {
+	if(r-1 >= 0 && direction == 0 && g->getCellOccupant(r-1, c)->isPrey()) { // if the space to the north is prey or empty
 		available = true;
 	}
-	if(c+1 < g->n && direction == 1 && g->getCellOccupant(r, c+1)->isPrey()) {
+	if(c+1 < g->n && direction == 1 && g->getCellOccupant(r, c+1)->isPrey()) { // if the space to the east is prey or empty
 		available = true;
 	}
-	if(r+1 < g->n && direction == 2 && g->getCellOccupant(r+1, c)->isPrey()) {
+	if(r+1 < g->n && direction == 2 && g->getCellOccupant(r+1, c)->isPrey()) { // if the space to the south is prey or empty
 		available = true;
 	}
-	if(c-1 >= 0 && direction == 3 && g->getCellOccupant(r, c-1)->isPrey()) {
+	if(c-1 >= 0 && direction == 3 && g->getCellOccupant(r, c-1)->isPrey()) { // if the space to the west is prey or empty
 		available = true;
 	}
 

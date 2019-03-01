@@ -17,12 +17,9 @@
  * Creates a Grid of a default number of Cells
  */
 Grid::Grid() {
-	pause = 0;
-	seed = 1;
-	numDoodlebugs = 5;
-	numAnts = 100;
-	numTimeSteps = 1000;
-	n = 20;
+	numDoodlebugs = 5; // the default number of doodlebugs on the board
+	numAnts = 100; // the default number of ants on the board
+	n = 20; // the default size of the board
 	orgArray = new Organism**[n]; // the array is an array of n arrays, each of which contains n pointers to organisms
 	for (int i = 0; i < n; i++) {
 		orgArray[i] = new Organism*[n]; // Each row is an array of pointers to Organisms
@@ -36,12 +33,9 @@ Grid::Grid() {
  * Creates a Grid with a given number of Cells on each side
  * @param nSquaresOnASide The amount of squares on each side of the board
  */
-Grid::Grid(int nSquaresOnASide, int numDoodlebugs, int numAnts, int numTimeSteps, int seed, int pause) {
-	this->seed = seed;
-	this->numDoodlebugs = numDoodlebugs;
-	this->numAnts = numAnts;
-	this->numTimeSteps = numTimeSteps;
-	this->pause = pause;
+Grid::Grid(int nSquaresOnASide, int numDoodlebugs, int numAnts) {
+	this->numDoodlebugs = numDoodlebugs; // the number of doodlebugs on the board
+	this->numAnts = numAnts; // the number of ants on the board
 	n = nSquaresOnASide; //initialize size of grid
 	orgArray = new Organism**[n]; // the array is an array of n arrays, each of which contains n pointers to organisms
 	for (int i = 0; i < n; i++) {
@@ -88,7 +82,7 @@ void Grid::step(int r, int c) {
  */
 char Grid::getLetter(int r, int c) {
 	Organism* org = orgArray[r][c];
-	char val = ' ';
+	char val = ' '; // a blank space
 
 	if((*org).isPrey() == true && org != nullptr) { // if the organism is an Ant (and not an empty space, which are initialized with amAnt = true)
 		return 'o';
@@ -109,9 +103,9 @@ char Grid::getLetter(int r, int c) {
  * @param c The number of columns in the grid
  */
 void Grid::printGrid() {
-	for(int r = 0; r < n; r++) {
-		for(int c = 0; c < n; c++) {
-			std::cout << getLetter(r, c);
+	for(int r = 0; r < n; r++) { // for each row
+		for(int c = 0; c < n; c++) { // and for each col
+			std::cout << getLetter(r, c); // print the letter
 		}
 		std::cout << std::endl;
 	}
@@ -121,22 +115,22 @@ void Grid::printGrid() {
  * Fills orgArray with random Organisms based on the number of each count
  */
 void Grid::randomizeGrid(int RNG) {
-	srand(RNG);
-    int doodleCount = numDoodlebugs;
-    int antCount = numAnts;
-    int randRow;
-    int randCol;
+	srand(RNG); // set the seed to whatever the user desires
+    int doodleCount = numDoodlebugs; // a placeholder for the number of doodles, will be decremented as more are added
+    int antCount = numAnts; // a placeholder for the number of doodles, will be decremented as more are added
+    int randRow; // a random row, which will decide where the organism belongs
+    int randCol; // a random col, which will decide where the organism belongs
 
     while(doodleCount > 0 || antCount > 0) {
-    	randRow = (int)(rand() % n);
-    	randCol = (int)(rand() % n);
+    	randRow = (int)(rand() % n); // initializing the row to be within bounds
+    	randCol = (int)(rand() % n); // initializing the col to be within bounds
     	if(doodleCount && getCellOccupant(randRow, randCol) == nullptr){ // if there are remaining doodlebugs to place, as well as remaining empty spots
     	    setCellOccupant(randRow, randCol, new Doodlebug(randRow, randCol, this));
-    	    doodleCount--;
+    	    doodleCount--; // decrement the number of doodles left to place
     	}
     	if(antCount && getCellOccupant(randRow, randCol) == nullptr) { // if there are remaining ants to place, and a space is empty
     	    setCellOccupant(randRow, randCol, new Ant(randRow, randCol, this));
-    	    antCount--;
+    	    antCount--; // decrement the number of ants left to place
     	}
     }
 }
