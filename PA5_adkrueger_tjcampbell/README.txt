@@ -1,10 +1,22 @@
 -- Ants & Doodlebugs -- 
-HW Assigment #4
+HW Assignment #4
 by Aaron Krueger and Theo Campbell
 
 The purpose of this program is to run a 2D game of Ants and Doodlebugs, where 
 the doodlebugs are responsible for eating the ants and the ants can attempt to
 outlive the doodlebugs.
+
+To run the program, place arguments on the command line in the following order:
+(Dimensions of Grid) (Number of Doodlebugs) (Number of Ants) (Number of 
+Time Steps) (Seed value) (Pause)
+The dimensions of the grid are n x n
+The number of doodlebugs will be the number of doodlebugs in the grid
+The number of ants will be the number of ants in the grid. Do not include more
+organisms than there are spaces on the grid
+The number of time steps is the number of steps the program should take
+The seed value is the value of the random number generator. Input a 0 if you 
+would like to use the current time as a seed
+The pause value will cause the grid to print and pause every (n % pause) steps
 
 #Doodlebug#
 Doodlebug has four main methods: move, breed, starve, and step. It also has 
