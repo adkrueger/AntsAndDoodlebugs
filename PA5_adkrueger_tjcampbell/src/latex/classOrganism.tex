@@ -1,0 +1,306 @@
+\section{Organism Class Reference}
+\label{classOrganism}\index{Organism@{Organism}}
+
+
+{\ttfamily \#include $<$Organism.\+h$>$}
+
+Inheritance diagram for Organism\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classOrganism}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Organism} ()
+\item 
+\textbf{ Organism} (bool b)
+\item 
+bool \textbf{ is\+Prey} ()
+\item 
+virtual bool \textbf{ move} (\textbf{ Grid} $\ast$\textbf{ grid})=0
+\item 
+virtual bool \textbf{ breed} (\textbf{ Grid} $\ast$\textbf{ grid})=0
+\item 
+virtual void \textbf{ step} (\textbf{ Grid} $\ast$\textbf{ grid})=0
+\item 
+bool \textbf{ check\+Empty\+Spaces} (\textbf{ Grid} $\ast$\textbf{ grid}, int \textbf{ r}, int \textbf{ c})
+\item 
+bool \textbf{ is\+Empty} (\textbf{ Grid} $\ast$\textbf{ grid}, int \textbf{ r}, int \textbf{ c})
+\item 
+void \textbf{ set\+Am\+Ant} (bool b)
+\item 
+bool \textbf{ can\+Move\+Here} (int direction, \textbf{ Grid} $\ast$g, int \textbf{ r}, int \textbf{ c})
+\item 
+bool \textbf{ doodle\+Can\+Move\+Here} (int direction, \textbf{ Grid} $\ast$g, int \textbf{ r}, int \textbf{ c})
+\item 
+virtual \textbf{ $\sim$\+Organism} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \textbf{ am\+Ant} = true
+\item 
+int \textbf{ r}
+\item 
+int \textbf{ c}
+\item 
+int \textbf{ moves\+Without\+Breeding}
+\item 
+\textbf{ Grid} $\ast$ \textbf{ grid}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\label{classOrganism_aeb16ee24b64839584b4862384d0b53fe}} 
+\index{Organism@{Organism}!Organism@{Organism}}
+\index{Organism@{Organism}!Organism@{Organism}}
+\subsubsection{Organism()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Organism\+::\+Organism (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Default constructor for an \doxyref{Organism}{p.}{classOrganism} 
+
+References c, grid, moves\+Without\+Breeding, and r.
+
+\mbox{\label{classOrganism_ac7d3dbebaf5df39d0a7883b2d76b4868}} 
+\index{Organism@{Organism}!Organism@{Organism}}
+\index{Organism@{Organism}!Organism@{Organism}}
+\subsubsection{Organism()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Organism\+::\+Organism (\begin{DoxyParamCaption}\item[{bool}]{b }\end{DoxyParamCaption})}
+
+Constructor for an \doxyref{Organism}{p.}{classOrganism}, which may or may not be an \doxyref{Ant}{p.}{classAnt} 
+\begin{DoxyParams}{Parameters}
+{\em b} & Whether or not the \doxyref{Organism}{p.}{classOrganism} is an \doxyref{Ant}{p.}{classAnt} \\
+\hline
+\end{DoxyParams}
+
+
+References am\+Ant, c, grid, moves\+Without\+Breeding, and r.
+
+\mbox{\label{classOrganism_aa5aa2e9fc3134358c929fa0c9d230c3b}} 
+\index{Organism@{Organism}!````~Organism@{$\sim$\+Organism}}
+\index{````~Organism@{$\sim$\+Organism}!Organism@{Organism}}
+\subsubsection{$\sim$\+Organism()}
+{\footnotesize\ttfamily Organism\+::$\sim$\+Organism (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Destructor for an \doxyref{Organism}{p.}{classOrganism} Removes the \doxyref{Organism}{p.}{classOrganism} from the \doxyref{Grid}{p.}{classGrid} and memory 
+
+References c, grid, r, and Grid\+::set\+Cell\+Occupant().
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\label{classOrganism_a423246fb1dee94db6c8c3b08fba57ead}} 
+\index{Organism@{Organism}!breed@{breed}}
+\index{breed@{breed}!Organism@{Organism}}
+\subsubsection{breed()}
+{\footnotesize\ttfamily virtual bool Organism\+::breed (\begin{DoxyParamCaption}\item[{\textbf{ Grid} $\ast$}]{grid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \textbf{ Doodlebug} \doxyref{}{p.}{classDoodlebug_a6ab3919da6f9404f1f3af05f0bbde13c}, and \textbf{ Ant} \doxyref{}{p.}{classAnt_af899faded61186f5ca27e43cee1463ba}.
+
+\mbox{\label{classOrganism_abd7d82fe6ef801008c9f1fb5ca25e0a4}} 
+\index{Organism@{Organism}!can\+Move\+Here@{can\+Move\+Here}}
+\index{can\+Move\+Here@{can\+Move\+Here}!Organism@{Organism}}
+\subsubsection{can\+Move\+Here()}
+{\footnotesize\ttfamily bool Organism\+::can\+Move\+Here (\begin{DoxyParamCaption}\item[{int}]{direction,  }\item[{\textbf{ Grid} $\ast$}]{g,  }\item[{int}]{r,  }\item[{int}]{c }\end{DoxyParamCaption})}
+
+Checks if the organism is able to move in the direction specified by direction. direction follows cardinal directions, i.\+e. 0 = north, 1 = east 2 = south, 3 = west Different from is\+Empty because it checks whether the given space is within the bounds of the grid. 
+\begin{DoxyParams}{Parameters}
+{\em direction} & The cardinal direction that the organism will be moving in \\
+\hline
+{\em g} & The grid that will be checked \\
+\hline
+{\em r} & The row of the organism \\
+\hline
+{\em c} & The column of the organism \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the organism can move to this space, false otherwise 
+\end{DoxyReturn}
+
+
+References Grid\+::get\+Cell\+Occupant(), is\+Empty(), and Grid\+::n.
+
+
+
+Referenced by Ant\+::breed(), Doodlebug\+::breed(), Ant\+::move(), and Doodlebug\+::move().
+
+\mbox{\label{classOrganism_a6248dae43f8697249e8db859c21b2b4c}} 
+\index{Organism@{Organism}!check\+Empty\+Spaces@{check\+Empty\+Spaces}}
+\index{check\+Empty\+Spaces@{check\+Empty\+Spaces}!Organism@{Organism}}
+\subsubsection{check\+Empty\+Spaces()}
+{\footnotesize\ttfamily bool Organism\+::check\+Empty\+Spaces (\begin{DoxyParamCaption}\item[{\textbf{ Grid} $\ast$}]{grid,  }\item[{int}]{r,  }\item[{int}]{c }\end{DoxyParamCaption})}
+
+\mbox{\label{classOrganism_aa699fff3a6b00c93e8b6070c299342c0}} 
+\index{Organism@{Organism}!doodle\+Can\+Move\+Here@{doodle\+Can\+Move\+Here}}
+\index{doodle\+Can\+Move\+Here@{doodle\+Can\+Move\+Here}!Organism@{Organism}}
+\subsubsection{doodle\+Can\+Move\+Here()}
+{\footnotesize\ttfamily bool Organism\+::doodle\+Can\+Move\+Here (\begin{DoxyParamCaption}\item[{int}]{direction,  }\item[{\textbf{ Grid} $\ast$}]{g,  }\item[{int}]{r,  }\item[{int}]{c }\end{DoxyParamCaption})}
+
+Checks if the doodlebug is able to move in the direction specified by direction. direction follows cardinal directions, i.\+e. 0 = north, 1 = east 2 = south, 3 = west Different from is\+Empty because it checks whether the given space is within the bounds of the grid. Different from can\+Move\+Here because it checks whether or not the space is occupied by an ant 
+\begin{DoxyParams}{Parameters}
+{\em direction} & The cardinal direction that the organism will be moving in \\
+\hline
+{\em g} & The grid that will be checked \\
+\hline
+{\em r} & The row of the organism \\
+\hline
+{\em c} & The column of the organism \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the doodlebug can move to this space, false otherwise 
+\end{DoxyReturn}
+
+
+References Grid\+::get\+Cell\+Occupant(), is\+Prey(), and Grid\+::n.
+
+
+
+Referenced by Doodlebug\+::move().
+
+\mbox{\label{classOrganism_a2b171e4babfb65d2ed18544f713ec8ee}} 
+\index{Organism@{Organism}!is\+Empty@{is\+Empty}}
+\index{is\+Empty@{is\+Empty}!Organism@{Organism}}
+\subsubsection{is\+Empty()}
+{\footnotesize\ttfamily bool Organism\+::is\+Empty (\begin{DoxyParamCaption}\item[{\textbf{ Grid} $\ast$}]{grid,  }\item[{int}]{r,  }\item[{int}]{c }\end{DoxyParamCaption})}
+
+Checks whether or not the given Cell is occupied by something. 
+\begin{DoxyParams}{Parameters}
+{\em grid} & The grid that will be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if there is nothing in the given space, false otherwise 
+\end{DoxyReturn}
+
+
+References Grid\+::get\+Cell\+Occupant().
+
+
+
+Referenced by can\+Move\+Here().
+
+\mbox{\label{classOrganism_aa5213b2e2b0c4f227dc7dfc4c4ab411c}} 
+\index{Organism@{Organism}!is\+Prey@{is\+Prey}}
+\index{is\+Prey@{is\+Prey}!Organism@{Organism}}
+\subsubsection{is\+Prey()}
+{\footnotesize\ttfamily bool Organism\+::is\+Prey (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Whether or not the \doxyref{Organism}{p.}{classOrganism} is an \doxyref{Ant}{p.}{classAnt} \begin{DoxyReturn}{Returns}
+true if the \doxyref{Organism}{p.}{classOrganism} is an \doxyref{Ant}{p.}{classAnt} or nullptr false if the \doxyref{Organism}{p.}{classOrganism} is not an \doxyref{Ant}{p.}{classAnt} 
+\end{DoxyReturn}
+
+
+References am\+Ant.
+
+
+
+Referenced by doodle\+Can\+Move\+Here(), and Doodlebug\+::move().
+
+\mbox{\label{classOrganism_a1f040ef71509bd11d302c50b168716f4}} 
+\index{Organism@{Organism}!move@{move}}
+\index{move@{move}!Organism@{Organism}}
+\subsubsection{move()}
+{\footnotesize\ttfamily virtual bool Organism\+::move (\begin{DoxyParamCaption}\item[{\textbf{ Grid} $\ast$}]{grid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \textbf{ Doodlebug} \doxyref{}{p.}{classDoodlebug_a4f00da3e326d355a66e936110ce70f15}, and \textbf{ Ant} \doxyref{}{p.}{classAnt_a10d7a628d2459776b19d363a1fbf6dd9}.
+
+\mbox{\label{classOrganism_aba68f4745f6b0938cf157dcd27df1868}} 
+\index{Organism@{Organism}!set\+Am\+Ant@{set\+Am\+Ant}}
+\index{set\+Am\+Ant@{set\+Am\+Ant}!Organism@{Organism}}
+\subsubsection{set\+Am\+Ant()}
+{\footnotesize\ttfamily void Organism\+::set\+Am\+Ant (\begin{DoxyParamCaption}\item[{bool}]{b }\end{DoxyParamCaption})}
+
+Sets the status of an \doxyref{Organism}{p.}{classOrganism} to being an \doxyref{Ant}{p.}{classAnt} or not being an \doxyref{Ant}{p.}{classAnt} 
+\begin{DoxyParams}{Parameters}
+{\em b} & Whether or not the \doxyref{Organism}{p.}{classOrganism} is an \doxyref{Ant}{p.}{classAnt} \\
+\hline
+\end{DoxyParams}
+
+
+References am\+Ant.
+
+
+
+Referenced by Doodlebug\+::\+Doodlebug().
+
+\mbox{\label{classOrganism_a4900481a90b69a85fe688cc1b962c9a2}} 
+\index{Organism@{Organism}!step@{step}}
+\index{step@{step}!Organism@{Organism}}
+\subsubsection{step()}
+{\footnotesize\ttfamily virtual void Organism\+::step (\begin{DoxyParamCaption}\item[{\textbf{ Grid} $\ast$}]{grid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \textbf{ Doodlebug} \doxyref{}{p.}{classDoodlebug_a92f534cbd8df9342c324ccf240440f11}, and \textbf{ Ant} \doxyref{}{p.}{classAnt_ada3517d6d55d5b69b82a028caa36ea1e}.
+
+
+
+Referenced by Grid\+::step().
+
+
+
+\subsection{Field Documentation}
+\mbox{\label{classOrganism_ab9742ed0a29e19e3c52ba74bdea66b51}} 
+\index{Organism@{Organism}!am\+Ant@{am\+Ant}}
+\index{am\+Ant@{am\+Ant}!Organism@{Organism}}
+\subsubsection{am\+Ant}
+{\footnotesize\ttfamily bool Organism\+::am\+Ant = true\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Referenced by is\+Prey(), Organism(), and set\+Am\+Ant().
+
+\mbox{\label{classOrganism_aa4a0cc581a94a626b91642afb4ca0721}} 
+\index{Organism@{Organism}!c@{c}}
+\index{c@{c}!Organism@{Organism}}
+\subsubsection{c}
+{\footnotesize\ttfamily int Organism\+::c\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Referenced by Ant\+::\+Ant(), Ant\+::breed(), Doodlebug\+::breed(), Doodlebug\+::\+Doodlebug(), Ant\+::move(), Doodlebug\+::move(), Organism(), Ant\+::$\sim$\+Ant(), Doodlebug\+::$\sim$\+Doodlebug(), and $\sim$\+Organism().
+
+\mbox{\label{classOrganism_a1ddf0d09950ad29870ed09b058059621}} 
+\index{Organism@{Organism}!grid@{grid}}
+\index{grid@{grid}!Organism@{Organism}}
+\subsubsection{grid}
+{\footnotesize\ttfamily \textbf{ Grid}$\ast$ Organism\+::grid\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Referenced by Ant\+::\+Ant(), Doodlebug\+::\+Doodlebug(), Organism(), Ant\+::$\sim$\+Ant(), Doodlebug\+::$\sim$\+Doodlebug(), and $\sim$\+Organism().
+
+\mbox{\label{classOrganism_a13c60077acaf50dd60d80123fbadd4e4}} 
+\index{Organism@{Organism}!moves\+Without\+Breeding@{moves\+Without\+Breeding}}
+\index{moves\+Without\+Breeding@{moves\+Without\+Breeding}!Organism@{Organism}}
+\subsubsection{moves\+Without\+Breeding}
+{\footnotesize\ttfamily int Organism\+::moves\+Without\+Breeding\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Referenced by Ant\+::\+Ant(), Ant\+::breed(), Doodlebug\+::breed(), Doodlebug\+::\+Doodlebug(), Ant\+::move(), Doodlebug\+::move(), Organism(), Ant\+::step(), and Doodlebug\+::step().
+
+\mbox{\label{classOrganism_a5f2eb37d8893263632129a293d87264f}} 
+\index{Organism@{Organism}!r@{r}}
+\index{r@{r}!Organism@{Organism}}
+\subsubsection{r}
+{\footnotesize\ttfamily int Organism\+::r\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Referenced by Ant\+::\+Ant(), Ant\+::breed(), Doodlebug\+::breed(), Doodlebug\+::\+Doodlebug(), Ant\+::move(), Doodlebug\+::move(), Organism(), Ant\+::$\sim$\+Ant(), Doodlebug\+::$\sim$\+Doodlebug(), and $\sim$\+Organism().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\textbf{ Organism.\+h}\item 
+\textbf{ Organism.\+cpp}\end{DoxyCompactItemize}

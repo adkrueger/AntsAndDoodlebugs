@@ -61,3 +61,175 @@ step - causes each organism to take a step, ignoring nullptrs
 getLetter - returns a letter corresponding to whatever organism is in the 
 given position. Blank space if nullptr, o if ant, and x if doodlebug
 printGrid - prints out each organism of the array, using getLetter
+
+#Production#
+Runs the program using argc and argv[]
+production - the constructor that obtains the input values
+runProduction - causes each organism to step through the program, going
+row by column. Prints out original command line and other values 
+pertaining to the program
+
+Test output is pasted below:
+Running the grid test
+                    
+                    
+   o                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+(The default grid of size 20, which is completely empty except for an Ant)
+GridTest() Passed
+
+Running the make ants test
+The grid before an Ant is added
+   
+   
+   
+The grid after an Ant is added
+   
+  o
+   
+makeAntsTest() Passed
+
+Running the move ants test
+The grid before the Ant moves
+  
+ o
+The grid after the Ant moves
+  
+o 
+antsMoveTest() Passed
+
+Running the breed ants test
+The grid before the Ant breeds
+   
+ o 
+   
+The grid after the Ant breeds
+   
+ o 
+ o 
+antsBreedTest() Passed
+
+Running the ants die test
+The grid before the Ant dies
+   
+ o 
+   
+The grid after the Ant dies
+   
+   
+   
+antsDieTest() Passed
+
+Running the make doodlebugs test
+The grid before the Doodlebug is constructed
+   
+   
+   
+The grid after the Doodlebug is constructed
+x  
+   
+   
+makeDoodlesTest() Passed
+
+Running the move doodlebugs test
+The grid before the Doodlebug moves
+  
+ x
+The grid after the Doodlebug moves
+  
+x 
+doodleMoveTest() Passed
+
+Running the breed doodlebugs test
+The grid before the Doodlebug attempts to breed
+   
+ x 
+   
+The grid after the Doodlebug attempts to breed
+   
+ xx
+   
+doodleBreedTest() Passed
+
+Running the doodle eats ant test
+The grid before the Ant gets eaten
+ o
+ox
+The grid after the Ant gets eaten (and one of the ants moves)
+o 
+x 
+doodleEatTest() Passed
+
+Running the doodlebug dies test
+The grid before the Doodlebug dies
+   
+ x 
+   
+The grid after the Doodlebug dies
+   
+   
+   
+doodleDieTest() Passed
+
+Running the ants don't move test
+The grid before the Ant attempts to move
+ oo
+ooo
+ooo
+The grid after the Ant attempts to move (the exact same)
+ oo
+ooo
+ooo
+antsDontMoveTest() Passed
+
+Running the ants don't breed test
+The grid before the Ant attempts to breed
+ oo
+ooo
+ooo
+The grid after the Ant attempts to breed (the exact same)
+ oo
+ooo
+ooo
+antsDontBreedTest() Passed
+
+Running the doodles don't move test
+The grid before the Doodlebug attempts to move
+ x 
+xxx
+ x 
+The grid after the Doodlebug attempts to move (the exact same)
+ x 
+xxx
+ x 
+doodleDontMoveTest() Passed
+
+Running the doodle don't breed test
+The grid before the Doodlebug attempts to breed
+ xx
+xxx
+xxx
+The grid after the Doodlebug attempts to breed (the exact same)
+ xx
+xxx
+xxx
+doodleDontBreedTest() Passed
+
+The only code not written by us was the prototypes for certain methods and 
+their declarations

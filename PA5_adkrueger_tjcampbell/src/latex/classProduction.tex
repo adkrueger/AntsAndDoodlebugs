@@ -1,0 +1,283 @@
+\section{Production Class Reference}
+\label{classProduction}\index{Production@{Production}}
+
+
+{\ttfamily \#include $<$Production.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Production} (int argc, const char $\ast$argv[$\,$])
+\item 
+bool \textbf{ run\+Production} ()
+\item 
+bool \textbf{ run\+Production} (int n\+Squares\+On\+A\+Side, int num\+Doodles, int \textbf{ num\+Ants}, int \textbf{ num\+Time\+Steps}, int \textbf{ seed}, int \textbf{ pause})
+\item 
+int \textbf{ getN} ()
+\item 
+int \textbf{ get\+Num\+Doodlebugs} ()
+\item 
+int \textbf{ get\+Num\+Ants} ()
+\item 
+int \textbf{ get\+Num\+Time\+Steps} ()
+\item 
+int \textbf{ get\+Seed} ()
+\item 
+int \textbf{ get\+Pause} ()
+\item 
+virtual \textbf{ $\sim$\+Production} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ n} = 20
+\item 
+int \textbf{ num\+Doodlebugs} = 5
+\item 
+int \textbf{ num\+Ants} = 100
+\item 
+int \textbf{ num\+Time\+Steps} = 1000
+\item 
+int \textbf{ seed} = 1
+\item 
+int \textbf{ pause} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\label{classProduction_ad29a49906320fdd3730d6ef66f4f081a}} 
+\index{Production@{Production}!Production@{Production}}
+\index{Production@{Production}!Production@{Production}}
+\subsubsection{Production()}
+{\footnotesize\ttfamily Production\+::\+Production (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{const char $\ast$}]{argv[$\,$] }\end{DoxyParamCaption})}
+
+The production constructor of the program 
+\begin{DoxyParams}{Parameters}
+{\em argc} & Number of words on the command line \\
+\hline
+{\em argv\mbox{[}$\,$\mbox{]}} & Array of character strings, the words from the command line. \\
+\hline
+\end{DoxyParams}
+
+
+References n, num\+Ants, num\+Doodlebugs, num\+Time\+Steps, pause, and seed.
+
+
+
+Referenced by main().
+
+\mbox{\label{classProduction_ab5b3060f9e0a2bc189844e426d693dab}} 
+\index{Production@{Production}!````~Production@{$\sim$\+Production}}
+\index{````~Production@{$\sim$\+Production}!Production@{Production}}
+\subsubsection{$\sim$\+Production()}
+{\footnotesize\ttfamily Production\+::$\sim$\+Production (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Referenced by main().
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\label{classProduction_a5babff97aba3cdf4cd37e99a15470388}} 
+\index{Production@{Production}!getN@{getN}}
+\index{getN@{getN}!Production@{Production}}
+\subsubsection{get\+N()}
+{\footnotesize\ttfamily int Production\+::getN (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the variable n \begin{DoxyReturn}{Returns}
+the variable n 
+\end{DoxyReturn}
+
+
+References n.
+
+
+
+Referenced by main().
+
+\mbox{\label{classProduction_a418b8ed0c5e41e1539c4859cf833ba47}} 
+\index{Production@{Production}!get\+Num\+Ants@{get\+Num\+Ants}}
+\index{get\+Num\+Ants@{get\+Num\+Ants}!Production@{Production}}
+\subsubsection{get\+Num\+Ants()}
+{\footnotesize\ttfamily int Production\+::get\+Num\+Ants (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the variable num\+Ants \begin{DoxyReturn}{Returns}
+the variable num\+Ants 
+\end{DoxyReturn}
+
+
+References num\+Ants.
+
+
+
+Referenced by main().
+
+\mbox{\label{classProduction_a0c6949850b1ec88f5dc71751b6abc8ac}} 
+\index{Production@{Production}!get\+Num\+Doodlebugs@{get\+Num\+Doodlebugs}}
+\index{get\+Num\+Doodlebugs@{get\+Num\+Doodlebugs}!Production@{Production}}
+\subsubsection{get\+Num\+Doodlebugs()}
+{\footnotesize\ttfamily int Production\+::get\+Num\+Doodlebugs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the variable num\+Doodlebugs \begin{DoxyReturn}{Returns}
+the variable num\+Doodlebugs 
+\end{DoxyReturn}
+
+
+References num\+Doodlebugs.
+
+
+
+Referenced by main().
+
+\mbox{\label{classProduction_a5d54aec3db3b6bb0b7f2629759d10244}} 
+\index{Production@{Production}!get\+Num\+Time\+Steps@{get\+Num\+Time\+Steps}}
+\index{get\+Num\+Time\+Steps@{get\+Num\+Time\+Steps}!Production@{Production}}
+\subsubsection{get\+Num\+Time\+Steps()}
+{\footnotesize\ttfamily int Production\+::get\+Num\+Time\+Steps (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the variable num\+Time\+Steps \begin{DoxyReturn}{Returns}
+the variable num\+Time\+Steps 
+\end{DoxyReturn}
+
+
+References num\+Time\+Steps.
+
+
+
+Referenced by main().
+
+\mbox{\label{classProduction_a47e42a05b46864c76b8998e192e73785}} 
+\index{Production@{Production}!get\+Pause@{get\+Pause}}
+\index{get\+Pause@{get\+Pause}!Production@{Production}}
+\subsubsection{get\+Pause()}
+{\footnotesize\ttfamily int Production\+::get\+Pause (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the variable pause \begin{DoxyReturn}{Returns}
+the variable pause 
+\end{DoxyReturn}
+
+
+References pause.
+
+
+
+Referenced by main().
+
+\mbox{\label{classProduction_a609b65699acae950471e0d695dda3bb7}} 
+\index{Production@{Production}!get\+Seed@{get\+Seed}}
+\index{get\+Seed@{get\+Seed}!Production@{Production}}
+\subsubsection{get\+Seed()}
+{\footnotesize\ttfamily int Production\+::get\+Seed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the variable seed \begin{DoxyReturn}{Returns}
+the variable seed 
+\end{DoxyReturn}
+
+
+References seed.
+
+
+
+Referenced by main().
+
+\mbox{\label{classProduction_a1d66853eafae2580089eff44f12f07ba}} 
+\index{Production@{Production}!run\+Production@{run\+Production}}
+\index{run\+Production@{run\+Production}!Production@{Production}}
+\subsubsection{run\+Production()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Production\+::run\+Production (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Runs production with default values (which are initialized in .h file) 
+
+References n, num\+Ants, num\+Doodlebugs, num\+Time\+Steps, pause, and seed.
+
+
+
+Referenced by main().
+
+\mbox{\label{classProduction_a758671d90a552cdf37306fe179891f28}} 
+\index{Production@{Production}!run\+Production@{run\+Production}}
+\index{run\+Production@{run\+Production}!Production@{Production}}
+\subsubsection{run\+Production()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Production\+::run\+Production (\begin{DoxyParamCaption}\item[{int}]{n\+Squares\+On\+A\+Side,  }\item[{int}]{num\+Doodles,  }\item[{int}]{num\+Ants,  }\item[{int}]{num\+Time\+Steps,  }\item[{int}]{seed,  }\item[{int}]{pause }\end{DoxyParamCaption})}
+
+Runs the production based on user input 
+\begin{DoxyParams}{Parameters}
+{\em n\+Squares\+On\+A\+Side} & The dimensions of the game (n x n grid size) (default 20) \\
+\hline
+{\em num\+Doodles} & The \\
+\hline
+\end{DoxyParams}
+
+
+References n, Grid\+::num\+Ants, Grid\+::num\+Doodlebugs, Grid\+::print\+Grid(), Grid\+::randomize\+Grid(), and Grid\+::step().
+
+
+
+\subsection{Field Documentation}
+\mbox{\label{classProduction_a33b15dfed0402031b26d5ebd6de3a864}} 
+\index{Production@{Production}!n@{n}}
+\index{n@{n}!Production@{Production}}
+\subsubsection{n}
+{\footnotesize\ttfamily int Production\+::n = 20\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Referenced by get\+N(), Production(), and run\+Production().
+
+\mbox{\label{classProduction_a9bf1f5e66a3a787f08d37d5ef06cf8b6}} 
+\index{Production@{Production}!num\+Ants@{num\+Ants}}
+\index{num\+Ants@{num\+Ants}!Production@{Production}}
+\subsubsection{num\+Ants}
+{\footnotesize\ttfamily int Production\+::num\+Ants = 100\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Referenced by get\+Num\+Ants(), Production(), and run\+Production().
+
+\mbox{\label{classProduction_a3bfd9e01f9f73efd1f92176e5f7458eb}} 
+\index{Production@{Production}!num\+Doodlebugs@{num\+Doodlebugs}}
+\index{num\+Doodlebugs@{num\+Doodlebugs}!Production@{Production}}
+\subsubsection{num\+Doodlebugs}
+{\footnotesize\ttfamily int Production\+::num\+Doodlebugs = 5\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Referenced by get\+Num\+Doodlebugs(), Production(), and run\+Production().
+
+\mbox{\label{classProduction_a079f2c4ddd0af799fd4c11b7a96a3065}} 
+\index{Production@{Production}!num\+Time\+Steps@{num\+Time\+Steps}}
+\index{num\+Time\+Steps@{num\+Time\+Steps}!Production@{Production}}
+\subsubsection{num\+Time\+Steps}
+{\footnotesize\ttfamily int Production\+::num\+Time\+Steps = 1000\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Referenced by get\+Num\+Time\+Steps(), Production(), and run\+Production().
+
+\mbox{\label{classProduction_af570feb7415a4d5b1a9176dacd9d6b64}} 
+\index{Production@{Production}!pause@{pause}}
+\index{pause@{pause}!Production@{Production}}
+\subsubsection{pause}
+{\footnotesize\ttfamily int Production\+::pause = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Referenced by get\+Pause(), Production(), and run\+Production().
+
+\mbox{\label{classProduction_adb474287b0143fccb9d440ccc54ba624}} 
+\index{Production@{Production}!seed@{seed}}
+\index{seed@{seed}!Production@{Production}}
+\subsubsection{seed}
+{\footnotesize\ttfamily int Production\+::seed = 1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Referenced by get\+Seed(), Production(), and run\+Production().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\textbf{ Production.\+h}\item 
+\textbf{ Production.\+cpp}\end{DoxyCompactItemize}

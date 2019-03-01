@@ -1,0 +1,243 @@
+\section{Grid Class Reference}
+\label{classGrid}\index{Grid@{Grid}}
+
+
+{\ttfamily \#include $<$Grid.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Grid} ()
+\item 
+\textbf{ Grid} (int n\+Squares\+On\+A\+Side, int num\+Doodles, int \textbf{ num\+Ants})
+\item 
+void \textbf{ set\+Cell\+Occupant} (int r, int c, \textbf{ Organism} $\ast$o)
+\item 
+\textbf{ Organism} $\ast$ \textbf{ get\+Cell\+Occupant} (int r, int c)
+\item 
+void \textbf{ step} (int r, int c)
+\item 
+char \textbf{ get\+Letter} (int r, int c)
+\item 
+void \textbf{ print\+Grid} ()
+\item 
+void \textbf{ randomize\+Grid} (int R\+NG)
+\item 
+virtual \textbf{ $\sim$\+Grid} ()
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ num\+Ants}
+\item 
+int \textbf{ num\+Doodlebugs}
+\item 
+\textbf{ Organism} $\ast$$\ast$$\ast$ \textbf{ org\+Array} = (\textbf{ Organism}$\ast$$\ast$$\ast$)nullptr
+\item 
+int \textbf{ n} =0
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\label{classGrid_a4ac9ff4f63552b4c61ff90fcb35ad66c}} 
+\index{Grid@{Grid}!Grid@{Grid}}
+\index{Grid@{Grid}!Grid@{Grid}}
+\subsubsection{Grid()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Grid\+::\+Grid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Creates a \doxyref{Grid}{p.}{classGrid} of a default number of Cells 
+
+References n, num\+Ants, num\+Doodlebugs, and org\+Array.
+
+\mbox{\label{classGrid_a68475d9701f21e276b297126126cdc10}} 
+\index{Grid@{Grid}!Grid@{Grid}}
+\index{Grid@{Grid}!Grid@{Grid}}
+\subsubsection{Grid()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Grid\+::\+Grid (\begin{DoxyParamCaption}\item[{int}]{n\+Squares\+On\+A\+Side,  }\item[{int}]{num\+Doodlebugs,  }\item[{int}]{num\+Ants }\end{DoxyParamCaption})}
+
+Creates a \doxyref{Grid}{p.}{classGrid} with a given number of Cells on each side 
+\begin{DoxyParams}{Parameters}
+{\em n\+Squares\+On\+A\+Side} & The amount of squares on each side of the board \\
+\hline
+\end{DoxyParams}
+
+
+References n, num\+Ants, num\+Doodlebugs, and org\+Array.
+
+\mbox{\label{classGrid_a3661d0a7f998caaaf8627d7a67072116}} 
+\index{Grid@{Grid}!````~Grid@{$\sim$\+Grid}}
+\index{````~Grid@{$\sim$\+Grid}!Grid@{Grid}}
+\subsubsection{$\sim$\+Grid()}
+{\footnotesize\ttfamily Grid\+::$\sim$\+Grid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Destroys the given \doxyref{Grid}{p.}{classGrid}, going row by row and removing each Cell from memory 
+
+References n, and org\+Array.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\label{classGrid_a42fb1a75c9cf52ca8c92014d38abfc88}} 
+\index{Grid@{Grid}!get\+Cell\+Occupant@{get\+Cell\+Occupant}}
+\index{get\+Cell\+Occupant@{get\+Cell\+Occupant}!Grid@{Grid}}
+\subsubsection{get\+Cell\+Occupant()}
+{\footnotesize\ttfamily \textbf{ Organism} $\ast$ Grid\+::get\+Cell\+Occupant (\begin{DoxyParamCaption}\item[{int}]{r,  }\item[{int}]{c }\end{DoxyParamCaption})}
+
+Returns the occupant of a given Cell. Will not check if r and c are within bounds! 
+\begin{DoxyParams}{Parameters}
+{\em r} & the row of the given Cell \\
+\hline
+{\em c} & the column of the given Cell \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the organism in the cell 
+\end{DoxyReturn}
+
+
+References org\+Array.
+
+
+
+Referenced by Tests2\+::ants\+Breed\+Test(), Tests2\+::ants\+Die\+Test(), Tests2\+::ants\+Dont\+Breed\+Test(), Tests2\+::ants\+Dont\+Move\+Test(), Tests2\+::ants\+Move\+Test(), Organism\+::can\+Move\+Here(), Tests2\+::doodle\+Breed\+Test(), Doodlebug\+::\+Doodlebug(), Organism\+::doodle\+Can\+Move\+Here(), Tests2\+::doodle\+Dietest(), Tests2\+::doodle\+Dont\+Breed\+Test(), Tests2\+::doodle\+Dont\+Move\+Test(), Tests2\+::doodle\+Eat\+Test(), Tests2\+::doodle\+Move\+Test(), Doodlebug\+::eat(), Tests2\+::grid\+Test(), Organism\+::is\+Empty(), Tests2\+::make\+Ants\+Test(), Tests2\+::make\+Doodles\+Test(), Doodlebug\+::move(), randomize\+Grid(), and step().
+
+\mbox{\label{classGrid_ae6ea956ae4568eb1fa3bb1b0cb7a0a39}} 
+\index{Grid@{Grid}!get\+Letter@{get\+Letter}}
+\index{get\+Letter@{get\+Letter}!Grid@{Grid}}
+\subsubsection{get\+Letter()}
+{\footnotesize\ttfamily char Grid\+::get\+Letter (\begin{DoxyParamCaption}\item[{int}]{r,  }\item[{int}]{c }\end{DoxyParamCaption})}
+
+Returns a letter corresponding to the type of \doxyref{Organism}{p.}{classOrganism} in a certain Cell \begin{DoxyReturn}{Returns}
+a letter that corresponds to the type of \doxyref{Organism}{p.}{classOrganism} in a certain Cell 
+\end{DoxyReturn}
+
+
+References org\+Array.
+
+
+
+Referenced by print\+Grid().
+
+\mbox{\label{classGrid_a04601ea9795a6928190e64fa89f10499}} 
+\index{Grid@{Grid}!print\+Grid@{print\+Grid}}
+\index{print\+Grid@{print\+Grid}!Grid@{Grid}}
+\subsubsection{print\+Grid()}
+{\footnotesize\ttfamily void Grid\+::print\+Grid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Prints out the grid in a format corresponding to what is in each Cell x if the organism is a \doxyref{Doodlebug}{p.}{classDoodlebug} o if the organism is an \doxyref{Ant}{p.}{classAnt} \textquotesingle{} \textquotesingle{} (empty space) if the cell is empty 
+\begin{DoxyParams}{Parameters}
+{\em grid} & The grid to be printed \\
+\hline
+{\em r} & The number of rows in the grid \\
+\hline
+{\em c} & The number of columns in the grid \\
+\hline
+\end{DoxyParams}
+
+
+References get\+Letter(), and n.
+
+
+
+Referenced by Tests2\+::ants\+Breed\+Test(), Tests2\+::ants\+Die\+Test(), Tests2\+::ants\+Dont\+Breed\+Test(), Tests2\+::ants\+Dont\+Move\+Test(), Tests2\+::ants\+Move\+Test(), Tests2\+::doodle\+Breed\+Test(), Tests2\+::doodle\+Dietest(), Tests2\+::doodle\+Dont\+Breed\+Test(), Tests2\+::doodle\+Dont\+Move\+Test(), Tests2\+::doodle\+Eat\+Test(), Tests2\+::doodle\+Move\+Test(), Tests2\+::grid\+Test(), Tests2\+::make\+Ants\+Test(), Tests2\+::make\+Doodles\+Test(), and Production\+::run\+Production().
+
+\mbox{\label{classGrid_a3d34142ead519cb09d47d6f87f77f863}} 
+\index{Grid@{Grid}!randomize\+Grid@{randomize\+Grid}}
+\index{randomize\+Grid@{randomize\+Grid}!Grid@{Grid}}
+\subsubsection{randomize\+Grid()}
+{\footnotesize\ttfamily void Grid\+::randomize\+Grid (\begin{DoxyParamCaption}\item[{int}]{R\+NG }\end{DoxyParamCaption})}
+
+Fills org\+Array with random Organisms based on the number of each count 
+
+References get\+Cell\+Occupant(), n, num\+Ants, num\+Doodlebugs, and set\+Cell\+Occupant().
+
+
+
+Referenced by Production\+::run\+Production().
+
+\mbox{\label{classGrid_a0f63830487262e45858a8ea451e341f2}} 
+\index{Grid@{Grid}!set\+Cell\+Occupant@{set\+Cell\+Occupant}}
+\index{set\+Cell\+Occupant@{set\+Cell\+Occupant}!Grid@{Grid}}
+\subsubsection{set\+Cell\+Occupant()}
+{\footnotesize\ttfamily void Grid\+::set\+Cell\+Occupant (\begin{DoxyParamCaption}\item[{int}]{r,  }\item[{int}]{c,  }\item[{\textbf{ Organism} $\ast$}]{o }\end{DoxyParamCaption})}
+
+Sets the occupant of the cell to the given values. 
+\begin{DoxyParams}{Parameters}
+{\em r} & The row of the occupant \\
+\hline
+{\em c} & The column of the occupant \\
+\hline
+{\em g} & The new occupant \\
+\hline
+\end{DoxyParams}
+
+
+References org\+Array.
+
+
+
+Referenced by Ant\+::\+Ant(), Ant\+::breed(), Doodlebug\+::breed(), Doodlebug\+::\+Doodlebug(), Doodlebug\+::eat(), Tests2\+::grid\+Test(), Tests2\+::make\+Ants\+Test(), Ant\+::move(), Doodlebug\+::move(), randomize\+Grid(), Ant\+::$\sim$\+Ant(), Doodlebug\+::$\sim$\+Doodlebug(), and Organism\+::$\sim$\+Organism().
+
+\mbox{\label{classGrid_a13c2a8c9eddcb7f5933f3d7c16a06d6c}} 
+\index{Grid@{Grid}!step@{step}}
+\index{step@{step}!Grid@{Grid}}
+\subsubsection{step()}
+{\footnotesize\ttfamily void Grid\+::step (\begin{DoxyParamCaption}\item[{int}]{r,  }\item[{int}]{c }\end{DoxyParamCaption})}
+
+Takes one \char`\"{}step\char`\"{} through the game. 
+
+References get\+Cell\+Occupant(), org\+Array, and Organism\+::step().
+
+
+
+Referenced by Production\+::run\+Production().
+
+
+
+\subsection{Field Documentation}
+\mbox{\label{classGrid_a9a0956abaf6071329601a9dc9c9e706c}} 
+\index{Grid@{Grid}!n@{n}}
+\index{n@{n}!Grid@{Grid}}
+\subsubsection{n}
+{\footnotesize\ttfamily int Grid\+::n =0}
+
+
+
+Referenced by Organism\+::can\+Move\+Here(), Organism\+::doodle\+Can\+Move\+Here(), Grid(), Doodlebug\+::move(), print\+Grid(), randomize\+Grid(), and $\sim$\+Grid().
+
+\mbox{\label{classGrid_a057a3f91bbaf94d7756d17c56fcedbea}} 
+\index{Grid@{Grid}!num\+Ants@{num\+Ants}}
+\index{num\+Ants@{num\+Ants}!Grid@{Grid}}
+\subsubsection{num\+Ants}
+{\footnotesize\ttfamily int Grid\+::num\+Ants}
+
+
+
+Referenced by Ant\+::breed(), Doodlebug\+::eat(), Grid(), randomize\+Grid(), and Production\+::run\+Production().
+
+\mbox{\label{classGrid_ae9ebdf747bc46ca69c502eb56c984f33}} 
+\index{Grid@{Grid}!num\+Doodlebugs@{num\+Doodlebugs}}
+\index{num\+Doodlebugs@{num\+Doodlebugs}!Grid@{Grid}}
+\subsubsection{num\+Doodlebugs}
+{\footnotesize\ttfamily int Grid\+::num\+Doodlebugs}
+
+
+
+Referenced by Doodlebug\+::breed(), Grid(), randomize\+Grid(), Production\+::run\+Production(), and Doodlebug\+::step().
+
+\mbox{\label{classGrid_a785e43fc15bcc03b163e9f42140c1aa3}} 
+\index{Grid@{Grid}!org\+Array@{org\+Array}}
+\index{org\+Array@{org\+Array}!Grid@{Grid}}
+\subsubsection{org\+Array}
+{\footnotesize\ttfamily \textbf{ Organism}$\ast$$\ast$$\ast$ Grid\+::org\+Array = (\textbf{ Organism}$\ast$$\ast$$\ast$)nullptr}
+
+
+
+Referenced by get\+Cell\+Occupant(), get\+Letter(), Grid(), set\+Cell\+Occupant(), step(), and $\sim$\+Grid().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\textbf{ Grid.\+h}\item 
+\textbf{ Grid.\+cpp}\end{DoxyCompactItemize}
